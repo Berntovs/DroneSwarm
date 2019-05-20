@@ -1,5 +1,8 @@
 <!DOCTYPE CrossStudio_Project_File>
-<solution Name="thread_mqtt_sn_client_publisher_pca10056" target="8" version="2">
+<solution
+  Name="thread_mqtt_sn_client_publisher_pca10056"
+  target="8"
+  version="2">
   <project Name="thread_mqtt_sn_client_publisher_pca10056">
     <configuration
       Name="Common"
@@ -15,25 +18,26 @@
       arm_simulator_memory_simulation_parameter="RWX 00000000,00100000,FFFFFFFF;RWX 20000000,00010000,CDCDCDCD"
       arm_target_device_name="nRF52840_xxAA"
       arm_target_interface_type="SWD"
-      c_user_include_directories="../../../config;../../../../../../components;../../../../../../components/boards;../../../../../../components/drivers_nrf/nrf_soc_nosd;../../../../../../components/libraries/atomic;../../../../../../components/libraries/balloc;../../../../../../components/libraries/bsp;../../../../../../components/libraries/button;../../../../../../components/libraries/delay;../../../../../../components/libraries/experimental_section_vars;../../../../../../components/libraries/log;../../../../../../components/libraries/log/src;../../../../../../components/libraries/mem_manager;../../../../../../components/libraries/memobj;../../../../../../components/libraries/mutex;../../../../../../components/libraries/pwr_mgmt;../../../../../../components/libraries/ringbuf;../../../../../../components/libraries/scheduler;../../../../../../components/libraries/strerror;../../../../../../components/libraries/timer;../../../../../../components/libraries/util;../../../../../../components/thread/mqtt_sn/mqtt_sn_client;../../../../../../components/thread/utils;../../../../../../components/toolchain/cmsis/include;../../..;../../../../../../external/fprintf;../../../../../../external/nrf_cc310/include;../../../../../../external/openthread/include;../../../../../../external/paho/mqtt-sn/mqttsn_packet;../../../../../../external/segger_rtt;../../../../../../integration/nrfx;../../../../../../integration/nrfx/legacy;../../../../../../modules/nrfx;../../../../../../modules/nrfx/drivers/include;../../../../../../modules/nrfx/hal;../../../../../../modules/nrfx/mdk;../config;"
       c_preprocessor_definitions="BOARD_PCA10056;CONFIG_GPIO_AS_PINRESET;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;NRF52840_XXAA;OPENTHREAD_FTD=1;SWI_DISABLE0;UART_ENABLED=0;"
-      debug_target_connection="J-Link"
-      gcc_entry_point="Reset_Handler"
-      macros="CMSIS_CONFIG_TOOL=../../../../../../external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar"
+      c_user_include_directories="../../../config;../../../../../../components;../../../../../../components/boards;../../../../../../components/drivers_nrf/nrf_soc_nosd;../../../../../../components/libraries/atomic;../../../../../../components/libraries/balloc;../../../../../../components/libraries/bsp;../../../../../../components/libraries/button;../../../../../../components/libraries/delay;../../../../../../components/libraries/experimental_section_vars;../../../../../../components/libraries/log;../../../../../../components/libraries/log/src;../../../../../../components/libraries/mem_manager;../../../../../../components/libraries/memobj;../../../../../../components/libraries/mutex;../../../../../../components/libraries/pwr_mgmt;../../../../../../components/libraries/ringbuf;../../../../../../components/libraries/scheduler;../../../../../../components/libraries/strerror;../../../../../../components/libraries/timer;../../../../../../components/libraries/util;../../../../../../components/thread/mqtt_sn/mqtt_sn_client;../../../../../../components/thread/utils;../../../../../../components/toolchain/cmsis/include;../../..;../../../../../../external/fprintf;../../../../../../external/nrf_cc310/include;../../../../../../external/openthread/include;../../../../../../external/paho/mqtt-sn/mqttsn_packet;../../../../../../external/segger_rtt;../../../../../../integration/nrfx;../../../../../../integration/nrfx/legacy;../../../../../../modules/nrfx;../../../../../../modules/nrfx/drivers/include;../../../../../../modules/nrfx/hal;../../../../../../modules/nrfx/mdk;../config;"
       debug_register_definition_file="../../../../../../modules/nrfx/mdk/nrf52840.svd"
       debug_start_from_entry_point_symbol="No"
-      gcc_debugging_level="Level 3"      linker_output_format="hex"
-      linker_printf_width_precision_supported="Yes"
+      debug_target_connection="J-Link"
+      gcc_debugging_level="Level 3"
+      gcc_entry_point="Reset_Handler"
+      linker_output_format="hex"
       linker_printf_fmt_level="long"
+      linker_printf_width_precision_supported="Yes"
       linker_scanf_fmt_level="long"
       linker_section_placement_file="flash_placement.xml"
       linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x100000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x40000;FLASH_START=0x0;FLASH_SIZE=0xfc000;RAM_START=0x20000000;RAM_SIZE=0x40000"
       linker_section_placements_segments="FLASH RX 0x0 0x100000;RAM RWX 0x20000000 0x40000;ot_flash_data RX 0xfc000 0x4000"
+      macros="CMSIS_CONFIG_TOOL=../../../../../../external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar"
       project_directory=""
       project_type="Executable" />
-      <folder Name="Segger Startup Files">
-        <file file_name="$(StudioDir)/source/thumb_crt0.s" />
-      </folder>
+    <folder Name="Segger Startup Files">
+      <file file_name="$(StudioDir)/source/thumb_crt0.s" />
+    </folder>
     <folder Name="nrf_cc310">
       <file file_name="../../../../../../external/nrf_cc310/lib/cortex-m4/hard-float/libnrf_cc310_0.9.12.a" />
     </folder>
@@ -89,6 +93,7 @@
       <file file_name="../../../../../../modules/nrfx/soc/nrfx_atomic.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_clock.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_gpiote.c" />
+      <file file_name="C:/NordicSemi/nRF5_SDK_for_Thread_and_Zigbee_2.0.0_29775ac/modules/nrfx/drivers/src/nrfx_pwm.c" />
     </folder>
     <folder Name="Board Support">
       <file file_name="../../../../../../components/libraries/bsp/bsp.c" />
@@ -127,11 +132,101 @@
       <file file_name="../../../../../../components/thread/mqtt_sn/mqtt_sn_client/mqttsn_transport_ot.c" />
       <file file_name="../../../../../../components/thread/utils/thread_utils.c" />
     </folder>
+    <folder Name="Drivers">
+      <folder Name="Source">
+        <file file_name="../../../Drivers/Source/d_eulerconversion.c" />
+        <file file_name="../../../Drivers/Source/d_LPS22HB_twi.c" />
+        <file file_name="../../../Drivers/Source/d_swarm_board.c" />
+        <file file_name="../../../Drivers/Source/d_twi.c" />
+        <file file_name="../../../Drivers/Source/d_BMX160_twi.c" />
+        <file file_name="../../../Drivers/Source/d_encoder.c" />
+        <file file_name="../../../Drivers/Source/d_encoder2.c" />
+      </folder>
+      <folder Name="Include">
+        <file file_name="../../../Drivers/Include/d_encoder2.h" />
+        <file file_name="../../../Drivers/Include/d_eulerconversion.h" />
+        <file file_name="../../../Drivers/Include/d_LPS22HB_twi.h" />
+        <file file_name="../../../Drivers/Include/d_swarm_board.h" />
+        <file file_name="../../../Drivers/Include/d_twi.h" />
+        <file file_name="../../../Drivers/Include/d_BMX160_twi.h" />
+        <file file_name="../../../Drivers/Include/d_encoder.h" />
+      </folder>
+      <folder Name="Registermaps">
+        <file file_name="../../../Drivers/registermaps/d_CCS811_RegisterMap.h" />
+        <file file_name="../../../Drivers/registermaps/d_HTS221_RegisterMap.h" />
+        <file file_name="../../../Drivers/registermaps/d_IS31FL3737_RegisterMap.h" />
+        <file file_name="../../../Drivers/registermaps/d_LPS22HB_RegisterMap.h" />
+        <file file_name="../../../Drivers/registermaps/d_BMX160_RegisterMap.h" />
+      </folder>
+    </folder>
+    <folder Name="Modules">
+      <folder Name="Source">
+        <file file_name="../../../Modules/Source/m_motor.c" />
+        <file file_name="../../../Modules/Source/m_mqtt.c" />
+        <file file_name="../../../Modules/Source/m_Real_Time_Clock.c" />
+        <file file_name="../../../Modules/Source/m_sensors.c" />
+        <file file_name="../../../Modules/Source/m_SPI.c" />
+        <file file_name="../../../Modules/Source/m_status_led.c" />
+        <file file_name="../../../Modules/Source/m_thread.c" />
+        <file file_name="../../../Modules/Source/m_tof.c" />
+        <file file_name="../../../Modules/Source/m_uart.c" />
+        <file file_name="../../../Modules/Source/m_ascii_converter.c" />
+        <file file_name="../../../Modules/Source/m_batt_meas.c" />
+        <file file_name="../../../Modules/Source/m_JSON.c" />
+        <file file_name="../../../Modules/Source/m_location.c" />
+        <file file_name="../../../Modules/Source/m_min_max.c" />
+      </folder>
+      <folder Name="Include">
+        <file file_name="../../../Modules/include/m_JSON.h" />
+        <file file_name="../../../Modules/include/m_location.h" />
+        <file file_name="../../../Modules/include/m_min_max.h" />
+        <file file_name="../../../Modules/include/m_motor.h" />
+        <file file_name="../../../Modules/include/m_mqtt.h" />
+        <file file_name="../../../Modules/include/m_Real_Time_Clock.h" />
+        <file file_name="../../../Modules/include/m_sensors.h" />
+        <file file_name="../../../Modules/include/m_SPI.h" />
+        <file file_name="../../../Modules/include/m_status_led.h" />
+        <file file_name="../../../Modules/include/m_thread.h" />
+        <file file_name="../../../Modules/include/m_tof.h" />
+        <file file_name="../../../Modules/include/m_uart.h" />
+        <file file_name="../../../Modules/include/m_ascii_converter.h" />
+        <file file_name="../../../Modules/include/m_batt_meas.h" />
+      </folder>
+    </folder>
+    <folder Name="TOF">
+      <folder Name="Source">
+        <file file_name="../../../VL53L0X_api/src/vl53l0x_api_core.c" />
+        <file file_name="../../../VL53L0X_api/src/vl53l0x_api_ranging.c" />
+        <file file_name="../../../VL53L0X_api/src/vl53l0x_api_strings.c" />
+        <file file_name="../../../VL53L0X_api/src/vl53l0x_i2c_comms.c" />
+        <file file_name="../../../VL53L0X_api/src/vl53l0x_platform.c" />
+        <file file_name="../../../VL53L0X_api/src/vl53l0x_api.c" />
+        <file file_name="../../../VL53L0X_api/src/vl53l0x_api_calibration.c" />
+      </folder>
+      <folder Name="Include">
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_api_core.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_api_ranging.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_api_strings.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_def.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_device.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_i2c_platform.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_interrupt_threshold_settings.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_platform.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_platform_log.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_tuning.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_types.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_api.h" />
+        <file file_name="../../../VL53L0X_api/inc/vl53l0x_api_calibration.h" />
+      </folder>
+    </folder>
   </project>
-  <configuration Name="Release"
+  <configuration
+    Name="Release"
     c_preprocessor_definitions="NDEBUG"
     gcc_optimization_level="Optimize For Size" />
-  <configuration Name="Debug"
+  <configuration
+    Name="Debug"
     c_preprocessor_definitions="DEBUG; DEBUG_NRF"
-    gcc_optimization_level="None"/>
+    c_user_include_directories="C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\registermaps;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\inc;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\src"
+    gcc_optimization_level="None" />
 </solution>
