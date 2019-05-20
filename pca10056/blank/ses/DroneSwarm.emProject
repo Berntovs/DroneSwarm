@@ -47,6 +47,7 @@
       <file file_name="../../../../../../components/libraries/log/src/nrf_log_default_backends.c" />
       <file file_name="../../../../../../components/libraries/log/src/nrf_log_frontend.c" />
       <file file_name="../../../../../../components/libraries/log/src/nrf_log_str_formatter.c" />
+      <file file_name="../../../../../../components/libraries/log/src/nrf_log_backend_uart.c" />
     </folder>
     <folder Name="Board Definition">
       <file file_name="../../../../../../components/boards/boards.c" />
@@ -93,9 +94,6 @@
       <file file_name="../../../../../../modules/nrfx/soc/nrfx_atomic.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_clock.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_gpiote.c" />
-      <file file_name="C:/NordicSemi/nRF5_SDK_for_Thread_and_Zigbee_2.0.0_29775ac/modules/nrfx/drivers/src/nrfx_pwm.c">
-        <configuration Name="Debug" build_exclude_from_build="No" />
-      </file>
     </folder>
     <folder Name="Board Support">
       <file file_name="../../../../../../components/libraries/bsp/bsp.c" />
@@ -221,6 +219,9 @@
         <file file_name="../../../VL53L0X_api/inc/vl53l0x_api_calibration.h" />
       </folder>
     </folder>
+    <configuration
+      Name="Debug"
+      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src" />
   </project>
   <configuration
     Name="Release"
