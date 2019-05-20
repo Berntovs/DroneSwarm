@@ -93,7 +93,9 @@
       <file file_name="../../../../../../modules/nrfx/soc/nrfx_atomic.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_clock.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_gpiote.c" />
-      <file file_name="C:/NordicSemi/nRF5_SDK_for_Thread_and_Zigbee_2.0.0_29775ac/modules/nrfx/drivers/src/nrfx_pwm.c" />
+      <file file_name="C:/NordicSemi/nRF5_SDK_for_Thread_and_Zigbee_2.0.0_29775ac/modules/nrfx/drivers/src/nrfx_pwm.c">
+        <configuration Name="Debug" build_exclude_from_build="No" />
+      </file>
     </folder>
     <folder Name="Board Support">
       <file file_name="../../../../../../components/libraries/bsp/bsp.c" />

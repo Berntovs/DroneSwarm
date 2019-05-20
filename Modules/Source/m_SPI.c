@@ -39,7 +39,7 @@ void spi_init(void)
     .mosi_pin = SHIELD_SPI_MOSI_PIN,
     .miso_pin = SHIELD_SPI_MISO_PIN,
     .ss_pin   = SHIELD_SPI_CS_PIN,
-    .irq_priority = SPI_DEFAULT_CONFIG_IRQ_PRIORITY,
+    .irq_priority = NRFX_SPI_DEFAULT_CONFIG_IRQ_PRIORITY,
     .orc = 0xFF,
     .frequency = NRF_SPI_FREQ_4M,
     .mode = NRF_SPI_MODE_0,
