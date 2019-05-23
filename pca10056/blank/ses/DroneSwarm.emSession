@@ -24,6 +24,7 @@
   <ProjectSessionItem path="thread_mqtt_sn_client_publisher_pca10056"/>
   <ProjectSessionItem path="thread_mqtt_sn_client_publisher_pca10056;thread_mqtt_sn_client_publisher_pca10056"/>
   <ProjectSessionItem path="thread_mqtt_sn_client_publisher_pca10056;thread_mqtt_sn_client_publisher_pca10056;Application"/>
+  <ProjectSessionItem path="thread_mqtt_sn_client_publisher_pca10056;thread_mqtt_sn_client_publisher_pca10056;Board Support"/>
   <ProjectSessionItem path="thread_mqtt_sn_client_publisher_pca10056;thread_mqtt_sn_client_publisher_pca10056;Drivers"/>
   <ProjectSessionItem path="thread_mqtt_sn_client_publisher_pca10056;thread_mqtt_sn_client_publisher_pca10056;Drivers;Include"/>
   <ProjectSessionItem path="thread_mqtt_sn_client_publisher_pca10056;thread_mqtt_sn_client_publisher_pca10056;Drivers;Registermaps"/>
