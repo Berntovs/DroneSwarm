@@ -91,6 +91,7 @@
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/m_location.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/m_min_max.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/m_mqttsn_message.o"
+"Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/m_Timer.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/vl53l0x_api_core.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/vl53l0x_api_ranging.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/vl53l0x_api_strings.o"
