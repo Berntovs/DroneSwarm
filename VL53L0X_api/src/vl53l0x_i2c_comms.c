@@ -2,32 +2,34 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include "nrf_drv_twi.h"
+//#include "nrf_drv_twi.h"
+#include "nrfx_twi.h"
+
 #include "app_error.h"
 #include "app_util_platform.h"
 #include "nrf_log.h"
 #include "vl53l0x_i2c_platform.h"
 #include "vl53l0x_def.h"
 
-const nrf_drv_twi_t tof_twi = NRF_DRV_TWI_INSTANCE(1);
+const nrfx_twi_t tof_twi = NRFX_TWI_INSTANCE(1);
 
 //#define I2C_DEBUG
 
 int VL53L0X_i2c_init(void) {
   ret_code_t err_code;
 
-  const nrf_drv_twi_config_t tof_twi_config = {
+  const nrfx_twi_config_t tof_twi_config = {
      .scl                = TOF_SCL_PIN,
      .sda                = TOF_SDA_PIN,
      .frequency          = NRF_TWI_FREQ_400K,
      .interrupt_priority = APP_IRQ_PRIORITY_LOW,
-     .clear_bus_init     = false
+     .hold_bus_uninit     = false
   };
 
-  err_code = nrf_drv_twi_init(&tof_twi, &tof_twi_config, NULL, NULL);
+  err_code = nrfx_twi_init(&tof_twi, &tof_twi_config, NULL, NULL);
   APP_ERROR_CHECK(err_code);
 
-  nrf_drv_twi_enable(&tof_twi);
+  nrfx_twi_enable(&tof_twi);
 
   NRF_LOG_RAW_INFO("[SUCCESS] Time-of-flight TWI enabled. \n");
 }
@@ -44,7 +46,7 @@ int VL53L0X_write_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, ui
     merge_array[i+1] = pdata[i];
   }
 
-  err_code = nrf_drv_twi_tx(&tof_twi, deviceAddress, merge_array, count+1, false);
+  err_code = nrfx_twi_tx(&tof_twi, deviceAddress, merge_array, count+1, false);
   APP_ERROR_CHECK(err_code);
 
   return VL53L0X_ERROR_NONE;
@@ -53,10 +55,10 @@ int VL53L0X_write_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, ui
 int VL53L0X_read_multi(uint8_t deviceAddress, uint8_t index, uint8_t *pdata, uint32_t count) {
 
   uint32_t err_code;
-  err_code = nrf_drv_twi_tx(&tof_twi, deviceAddress, &index, 1, false);
+  err_code = nrfx_twi_tx(&tof_twi, deviceAddress, &index, 1, false);
   APP_ERROR_CHECK(err_code);
 
-  err_code = nrf_drv_twi_rx(&tof_twi, deviceAddress, pdata, count);
+  err_code = nrfx_twi_rx(&tof_twi, deviceAddress, pdata, count);
   APP_ERROR_CHECK(err_code);
 
   return VL53L0X_ERROR_NONE;

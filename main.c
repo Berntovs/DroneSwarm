@@ -56,6 +56,8 @@
 
 #include "d_swarm_board.h"
 #include "m_mqtt.h"
+#include "m_tof.h"
+
 
 
 /***************************************************************************************************
@@ -63,13 +65,14 @@
  **************************************************************************************************/
 int main(int argc, char *argv[])
 {
-  board_init();
+  //board_init();
+  tof_init();
   while (true)
   {
     //__WFI();
     //pub();
     //NRF_LOG_FLUSH();
-    mqttsn_loop();
+    //mqttsn_loop();
    // __WFE();
   }
 }
