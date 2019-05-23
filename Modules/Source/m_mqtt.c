@@ -221,3 +221,4 @@ void mqttsn_pub(char message){
         NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
     }
 }
+
