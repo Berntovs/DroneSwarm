@@ -55,6 +55,7 @@
     <folder Name="Application">
       <file file_name="../../../main.c" />
       <file file_name="../config/sdk_config.h" />
+      <file file_name="../../../config.h" />
     </folder>
     <folder Name="nRF_Libraries">
       <file file_name="../../../../../../components/libraries/button/app_button.c" />
@@ -176,6 +177,7 @@
         <file file_name="../../../Modules/Source/m_JSON.c" />
         <file file_name="../../../Modules/Source/m_location.c" />
         <file file_name="../../../Modules/Source/m_min_max.c" />
+        <file file_name="../../../Modules/Source/m_mqttsn_message.c" />
       </folder>
       <folder Name="Include">
         <file file_name="../../../Modules/include/m_JSON.h" />
@@ -192,6 +194,7 @@
         <file file_name="../../../Modules/include/m_uart.h" />
         <file file_name="../../../Modules/include/m_ascii_converter.h" />
         <file file_name="../../../Modules/include/m_batt_meas.h" />
+        <file file_name="../../../Modules/include/m_mqttsn_message.h" />
       </folder>
     </folder>
     <folder Name="TOF">
@@ -222,7 +225,7 @@
     </folder>
     <configuration
       Name="Debug"
-      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src;C:\\nordic\\SDKTZ3\\modules\\nrfx\\drivers\\src\\" />
+      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src;C:\\nordic\\SDKTZ3\\modules\\nrfx\\drivers\\src\\;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\registermaps;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\inc;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\src" />
   </project>
   <configuration
     Name="Release"
