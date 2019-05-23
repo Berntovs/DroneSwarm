@@ -4,6 +4,11 @@
 
 #include "nrf_log.h"
 #include "m_Real_Time_Clock.h"
+#include "nrfx_rtc.h"
+#include "nrfx_timer.h"
+
+
+nrfx_timer_t timer_0 = NRFX_TIMER_INSTANCE(0);
 
 static nrfx_timer_t rtc_timer;
 
@@ -11,6 +16,10 @@ void rtc_event_handler(nrf_timer_event_t event_type, void* p_context){
 
 }
 
+void rtc_0_init(void)
+{
+  rtc_init(&timer_0);
+}
 
 void rtc_init(nrfx_timer_t * timer_instance)
 {

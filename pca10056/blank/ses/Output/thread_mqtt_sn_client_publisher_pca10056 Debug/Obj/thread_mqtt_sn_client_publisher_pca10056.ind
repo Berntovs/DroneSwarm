@@ -41,6 +41,7 @@
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/nrfx_atomic.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/nrfx_clock.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/nrfx_gpiote.o"
+"Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/nrfx_timer.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/bsp.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/bsp_thread.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/MQTTSNConnectClient.o"

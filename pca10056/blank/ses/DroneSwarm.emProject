@@ -94,6 +94,7 @@
       <file file_name="../../../../../../modules/nrfx/soc/nrfx_atomic.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_clock.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_gpiote.c" />
+      <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_timer.c" />
     </folder>
     <folder Name="Board Support">
       <file file_name="../../../../../../components/libraries/bsp/bsp.c" />
@@ -221,7 +222,7 @@
     </folder>
     <configuration
       Name="Debug"
-      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src" />
+      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src;C:\\nordic\\SDKTZ3\\modules\\nrfx\\drivers\\src\\" />
   </project>
   <configuration
     Name="Release"
