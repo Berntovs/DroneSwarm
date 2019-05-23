@@ -244,6 +244,7 @@ void mqttsn_boot(nrf_timer_event_t event_type, void *p_context)
     case STATE_GATEWAY:
         err_code = mqttsn_client_search_gateway(&m_client, SEARCH_GATEWAY_TIMEOUT);
         NRF_LOG_INFO("Gateway message sending");
+        NRF_LOG_FLUSH();
         if (err_code != NRF_SUCCESS)
         {
             NRF_LOG_ERROR("SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);

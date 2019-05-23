@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
   board_init();
   while (true)
   {
-    __WFI();
+    //__WFI();
     pub();
     NRF_LOG_FLUSH();
     mqttsn_loop();

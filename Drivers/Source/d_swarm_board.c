@@ -49,8 +49,10 @@ void single_chip_init(void)
 #if NRF_LOG_USED
     log_init();
 #endif
+
     mqttsn_init();
-    timer_1_init(500, mqttsn_boot);
+    timer_1_init(100, mqttsn_boot);
+
 }
 
 

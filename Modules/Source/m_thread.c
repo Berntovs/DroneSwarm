@@ -25,7 +25,6 @@
 ///////////////temporary placement//////////////
 
 ////////////////////////////////////////////////
-float time_between_state_change = 0;
 
 void scheduler_init(void)
 {
@@ -34,7 +33,6 @@ void scheduler_init(void)
 
 static void state_changed_callback(uint32_t flags, void *p_context)
 {
-    time_between_state_change = 0;
     NRF_LOG_INFO("State changed! Flags: 0x%08x Current role: %d\r\n",
                  flags, otThreadGetDeviceRole(p_context));
     NRF_LOG_FLUSH();
@@ -97,10 +95,9 @@ void thread_loop(void)
 
 void thread_connection_setup(void)
 {
-    while (time_between_state_change <= STATE_CHANGE_TIME_OUT)
+    while (rtc_get_current_time_ms() <= STATE_CHANGE_TIME_OUT)
     {
         thread_loop();
-        time_between_state_change = rtc_get_current_time_ms();
     }
     NRF_LOG_INFO("State decided!");
     NRF_LOG_FLUSH();

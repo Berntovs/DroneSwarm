@@ -18,10 +18,7 @@ void rtc_event_handler(nrf_timer_event_t event_type, void* p_context){
 
 }
 
-void rtc_0_init(void)
-{
-  rtc_init(&timer_0);
-}
+
 
 void rtc_init(nrfx_timer_t * timer_instance)
 {
@@ -42,6 +39,10 @@ void rtc_init(nrfx_timer_t * timer_instance)
     NRF_LOG_RAW_INFO("[SUCCESS] Real time clock enabled. \n");
     }
 
+void rtc_0_init(void)
+{
+  rtc_init(&timer_0);
+}
 
 uint32_t rtc_get_current_time_ticks(void)
 {
@@ -89,10 +90,11 @@ err_code = nrfx_timer_init(&timer_1, &timer_cfg, handler);
 APP_ERROR_CHECK(err_code);
 
 ticks = nrfx_timer_ms_to_ticks(&timer_1, time_ms);
-
+/*
 nrfx_timer_extended_compare(
   &timer_1, NRF_TIMER_CC_CHANNEL1, ticks, NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK, true);
-
+*/
+nrfx_timer_compare(&timer_1, 1, ticks, 1);
 nrfx_timer_enable(&timer_1);
 }
 
