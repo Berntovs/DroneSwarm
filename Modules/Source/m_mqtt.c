@@ -4,31 +4,30 @@
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-#include "nrf_log_default_backends.h"
+#include "app_error.h"
+#include "nrfx_timer.h"
 
 #include "mqttsn_client.h"
-
 #include "m_thread.h"
-
 #include "m_mqtt.h"
-
-#include "nrf_delay.h"
 
 #define SEARCH_GATEWAY_TIMEOUT 5 /**< MQTT-SN Gateway discovery procedure timeout in [s]. */
 
-static mqttsn_client_t      m_client;                                       /**< An MQTT-SN client instance. */
-static mqttsn_remote_t      m_gateway_addr = {127,0,0,1};                                 /**< A gateway address. */
-static uint8_t              m_gateway_id;                                   /**< A gateway ID. */
-static mqttsn_connect_opt_t m_connect_opt;                                  /**< Connect options for the MQTT-SN client. */
-static uint8_t              m_led_state        = 1;                         /**< Previously sent BSP_LED_2 command. */
-static uint16_t             m_msg_id           = 0;                         /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
-static char                 m_client_id[]      = "127.0.0.1";      /**< The MQTT-SN Client's ID. */
-static char                 m_topic_name[]     = "led"; /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
-static mqttsn_topic_t       m_topic            =                            /**< Topic corresponding to subscriber's BSP_LED_2. */
-{
-    .p_topic_name = (unsigned char *)m_topic_name,
-    .topic_id     = 0,
+static mqttsn_client_t m_client;                        /**< An MQTT-SN client instance. */
+static mqttsn_remote_t m_gateway_addr = {127, 0, 0, 1}; /**< A gateway address. */
+static uint8_t m_gateway_id;                            /**< A gateway ID. */
+static mqttsn_connect_opt_t m_connect_opt;              /**< Connect options for the MQTT-SN client. */
+static uint8_t m_led_state = 1;                         /**< Previously sent BSP_LED_2 command. */
+static uint16_t m_msg_id = 0;                           /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
+static char m_client_id[] = "127.0.0.1";                /**< The MQTT-SN Client's ID. */
+static char m_topic_name[] = "test";                    /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
+static mqttsn_topic_t m_topic =                         /**< Topic corresponding to subscriber's BSP_LED_2. */
+    {
+        .p_topic_name = (unsigned char *)m_topic_name,
+        .topic_id = 0,
 };
+
+volatile uint8_t status = 0;
 
 /***************************************************************************************************
  * @section MQTT-SN
@@ -112,11 +111,13 @@ void mqttsn_evt_handler(mqttsn_client_t *p_client, mqttsn_event_t *p_event)
     case MQTTSN_EVENT_GATEWAY_FOUND:
         NRF_LOG_INFO("MQTT-SN event: Client has found an active gateway.\r\n");
         gateway_info_callback(p_event);
+        status = 1;
         break;
 
     case MQTTSN_EVENT_CONNECTED:
         NRF_LOG_INFO("MQTT-SN event: Client connected.\r\n");
         connected_callback();
+        status = 2;
         break;
 
     case MQTTSN_EVENT_DISCONNECT_PERMIT:
@@ -152,7 +153,7 @@ void mqttsn_init(void)
 {
     uint32_t err_code;
     thread_setup();
-    nrf_delay_ms(5000);
+
     err_code = mqttsn_client_init(&m_client,
                                   MQTTSN_DEFAULT_CLIENT_PORT,
                                   mqttsn_evt_handler,
@@ -160,7 +161,7 @@ void mqttsn_init(void)
     APP_ERROR_CHECK(err_code);
 
     connect_opt_init();
-
+    /*
     err_code = mqttsn_client_search_gateway(&m_client, SEARCH_GATEWAY_TIMEOUT);
     mqttsn_loop();
     nrf_delay_ms(1000);
@@ -206,7 +207,7 @@ void mqttsn_init(void)
         NRF_LOG_FLUSH();
         mqttsn_loop();
         nrf_delay_ms(1000);
-    }
+    }*/
 }
 
 void mqttsn_loop(void)
@@ -214,11 +215,65 @@ void mqttsn_loop(void)
     thread_loop();
 }
 
-void mqttsn_pub(char message){
+void mqttsn_pub(char message)
+{
     uint32_t err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &message, 1, &m_msg_id);
     if (err_code != NRF_SUCCESS)
     {
         NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
     }
 }
+static char m = '0';
 
+void pub(void)
+{
+    if(status == 2){
+    uint32_t err_code;
+    err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &m, 1, &m_msg_id);
+    if (err_code != NRF_SUCCESS)
+    {
+        NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
+    }}
+}
+
+void mqttsn_boot(nrf_timer_event_t event_type, void *p_context)
+{
+    uint32_t err_code;
+    switch (status)
+    {
+    case STATE_GATEWAY:
+        err_code = mqttsn_client_search_gateway(&m_client, SEARCH_GATEWAY_TIMEOUT);
+        NRF_LOG_INFO("Gateway message sending");
+        if (err_code != NRF_SUCCESS)
+        {
+            NRF_LOG_ERROR("SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
+        }
+        break;
+    case STATE_CLIENT:
+        if (mqttsn_client_state_get(&m_client) == MQTTSN_CLIENT_CONNECTED)
+        {
+            err_code = mqttsn_client_disconnect(&m_client);
+            if (err_code != NRF_SUCCESS)
+            {
+                NRF_LOG_ERROR("DISCONNECT message could not be sent. Error: 0x%x\r\n", err_code);
+            }
+        }
+        else
+        {
+            err_code = mqttsn_client_connect(&m_client, &m_gateway_addr, m_gateway_id, &m_connect_opt);
+            if (err_code != NRF_SUCCESS)
+            {
+                NRF_LOG_ERROR("CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
+            }
+        }
+        break;
+    case STATE_PUB:
+
+        break;
+
+    default:
+        break;
+    }
+    NRF_LOG_FLUSH();
+    mqttsn_loop();
+}

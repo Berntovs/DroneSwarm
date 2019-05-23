@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "default_config.h"
 
-#define DUAL_CHIP_ENABLE true
+#define DUAL_CHIP_ENABLE false
 #define SECONDARY_CHIP_MODE true
 #define OLD_SWARM_BOARD_MODE true
 

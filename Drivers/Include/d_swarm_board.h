@@ -172,3 +172,6 @@
 #define SHLD_LED_1_PIN NRF_GPIO_PIN_MAP(1, 12)
 ///////////////////////////////////////////////////
 #endif
+
+
+void board_init(void);

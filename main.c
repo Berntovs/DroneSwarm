@@ -52,6 +52,7 @@
 
 #include "app_error.h"
 #include "nrf_delay.h"
+#include "nrf_log_ctrl.h"
 
 #include "d_swarm_board.h"
 #include "m_mqtt.h"
@@ -62,9 +63,12 @@
  **************************************************************************************************/
 int main(int argc, char *argv[])
 {
-
+  board_init();
   while (true)
   {
+    __WFI();
+    pub();
+    NRF_LOG_FLUSH();
     mqttsn_loop();
   }
 }

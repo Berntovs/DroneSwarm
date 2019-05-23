@@ -3,12 +3,14 @@
 #include <string.h>
 
 #include "nrf_log.h"
-#include "m_Real_Time_Clock.h"
 #include "nrfx_rtc.h"
 #include "nrfx_timer.h"
 
+#include "m_timer.h"
+
 
 nrfx_timer_t timer_0 = NRFX_TIMER_INSTANCE(0);
+nrfx_timer_t timer_1 = NRFX_TIMER_INSTANCE(1);
 
 static nrfx_timer_t rtc_timer;
 
@@ -67,15 +69,15 @@ float rtc_get_delta_time_sec(float * prev_time)
 }
 
 
-const nrfx_timer_t timer = NRFX_TIMER_INSTANCE(1);
+
 
 //static nrfx_timer_t timer;
-
+/*
 void timer_event_handler(nrf_timer_event_t event_type, void* p_context)
 {
-}
+}*/
 
-void timer_init(uint32_t time)
+void timer_1_init(uint32_t time, nrfx_timer_event_handler_t handler)
 {
 uint32_t time_ms = time;
 uint32_t ticks;
@@ -83,14 +85,14 @@ uint32_t err_code = NRF_SUCCESS;
 
 
 nrfx_timer_config_t timer_cfg = NRFX_TIMER_DEFAULT_CONFIG;
-err_code = nrfx_timer_init(&timer, &timer_cfg, timer_event_handler);
+err_code = nrfx_timer_init(&timer_1, &timer_cfg, handler);
 APP_ERROR_CHECK(err_code);
 
-ticks = nrfx_timer_ms_to_ticks(&timer, time_ms);
+ticks = nrfx_timer_ms_to_ticks(&timer_1, time_ms);
 
 nrfx_timer_extended_compare(
-  &timer, NRF_TIMER_CC_CHANNEL1, ticks, NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK, true);
+  &timer_1, NRF_TIMER_CC_CHANNEL1, ticks, NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK, true);
 
-nrfx_timer_enable(&timer);
+nrfx_timer_enable(&timer_1);
 }
 

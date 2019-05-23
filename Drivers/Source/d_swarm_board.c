@@ -6,21 +6,20 @@
 #include "nrf_log_default_backends.h"
 
 #include "m_mqtt.h"
+#include "m_timer.h"
 
 #include "d_swarm_board.h"
 #include "config.h"
 
-void board_init(void)
+
+
+
+void log_init(void)
 {
-#if DUAL_CHIP_ENABLE
-#if SECONDARY_CHIP
-    secondary_chip_init();
-#else
-    main_chip_init();
-#endif
-#else
-    single_chip_init();
-#endif
+    ret_code_t err_code = NRF_LOG_INIT(NULL);
+    APP_ERROR_CHECK(err_code);
+
+    NRF_LOG_DEFAULT_BACKENDS_INIT();
 }
 
 /**
@@ -46,16 +45,24 @@ void main_chip_init(void)
 
 void single_chip_init(void)
 {
-    mqttsn_init();
+
 #if NRF_LOG_USED
     log_init();
 #endif
+    mqttsn_init();
+    timer_1_init(500, mqttsn_boot);
 }
 
-void log_init(void)
-{
-    ret_code_t err_code = NRF_LOG_INIT(NULL);
-    APP_ERROR_CHECK(err_code);
 
-    NRF_LOG_DEFAULT_BACKENDS_INIT();
+void board_init(void)
+{
+#if DUAL_CHIP_ENABLE
+#if SECONDARY_CHIP
+    secondary_chip_init();
+#else
+    main_chip_init();
+#endif
+#else
+    single_chip_init();
+#endif
 }

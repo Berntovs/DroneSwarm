@@ -56,6 +56,7 @@
       <file file_name="../../../main.c" />
       <file file_name="../config/sdk_config.h" />
       <file file_name="../../../config.h" />
+      <file file_name="../../../default_config.h" />
     </folder>
     <folder Name="nRF_Libraries">
       <file file_name="../../../../../../components/libraries/button/app_button.c" />
@@ -178,7 +179,7 @@
         <file file_name="../../../Modules/Source/m_location.c" />
         <file file_name="../../../Modules/Source/m_min_max.c" />
         <file file_name="../../../Modules/Source/m_mqttsn_message.c" />
-        <file file_name="m_Timer.c" />
+        <file file_name="../../../Modules/Source/m_timer.c" />
       </folder>
       <folder Name="Include">
         <file file_name="../../../Modules/include/m_JSON.h" />
@@ -196,7 +197,7 @@
         <file file_name="../../../Modules/include/m_ascii_converter.h" />
         <file file_name="../../../Modules/include/m_batt_meas.h" />
         <file file_name="../../../Modules/include/m_mqttsn_message.h" />
-        <file file_name="m_timer.h" />
+        <file file_name="../../../Modules/include/m_timer.h" />
       </folder>
     </folder>
     <folder Name="TOF">

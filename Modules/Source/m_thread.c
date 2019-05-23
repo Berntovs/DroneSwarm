@@ -91,7 +91,7 @@ void thread_loop(void)
 
     if (NRF_LOG_PROCESS() == false)
     {
-        thread_sleep();
+        //thread_sleep();
     }
 }
 
