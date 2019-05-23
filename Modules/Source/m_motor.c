@@ -114,8 +114,8 @@ void motor_direction(motor_direction_t *selectdirection)
 void motor_speed(motor_speed_t *speed)
 {
       //Throttle_values.channel_0 = 100 -(uint16_t)speed->speedA;
-      Throttle_values.channel_0 = 100 - (uint16_t)speed->speedA;
-      Throttle_values.channel_1 = 100 - (uint16_t)speed->speedB;
+      Throttle_values.channel_0 = 100 - (uint16_t)speed->speed;
+      Throttle_values.channel_1 = 100 - (uint16_t)speed->speed;
 }
 
 void motor_run(void)

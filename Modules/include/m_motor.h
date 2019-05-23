@@ -37,8 +37,7 @@ typedef struct
 
 typedef struct
 {
-  uint16_t speedA;
-  uint16_t speedB;
+  uint16_t speed;
 }motor_speed_t;
 
 
@@ -50,8 +49,7 @@ typedef struct
 
  static motor_speed_t speed =
  {
- .speedA = 0,
- .speedB = 0,
+ .speed = 0,
  };
 
 void motor_direction(motor_direction_t *direction);
