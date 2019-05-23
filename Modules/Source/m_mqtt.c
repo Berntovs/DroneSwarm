@@ -27,7 +27,7 @@ static mqttsn_topic_t m_topic =                         /**< Topic corresponding
         .topic_id = 0,
 };
 
-volatile uint8_t status = 0;
+static uint8_t status = 0;
 
 /***************************************************************************************************
  * @section MQTT-SN
@@ -223,7 +223,7 @@ void mqttsn_pub(char message)
         NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
     }
 }
-static char m = '0';
+static char m = 'a';
 
 void pub(void)
 {
@@ -238,13 +238,13 @@ void pub(void)
 
 void mqttsn_boot(nrf_timer_event_t event_type, void *p_context)
 {
+     mqttsn_loop();
     uint32_t err_code;
     switch (status)
     {
     case STATE_GATEWAY:
         err_code = mqttsn_client_search_gateway(&m_client, SEARCH_GATEWAY_TIMEOUT);
         NRF_LOG_INFO("Gateway message sending");
-        NRF_LOG_FLUSH();
         if (err_code != NRF_SUCCESS)
         {
             NRF_LOG_ERROR("SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
@@ -269,7 +269,7 @@ void mqttsn_boot(nrf_timer_event_t event_type, void *p_context)
         }
         break;
     case STATE_PUB:
-
+        pub();
         break;
 
     default:

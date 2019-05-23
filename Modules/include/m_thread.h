@@ -4,7 +4,7 @@
 
 #include "thread_utils.h"
 
-#define STATE_CHANGE_TIME_OUT 1000
+#define STATE_CHANGE_TIME_OUT 100
 
 otInstance *get_thread_instance(void);
 void thread_loop(void);

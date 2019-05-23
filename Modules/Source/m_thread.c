@@ -95,7 +95,7 @@ void thread_loop(void)
 
 void thread_connection_setup(void)
 {
-    while (rtc_get_current_time_ms() <= STATE_CHANGE_TIME_OUT)
+   while (rtc_get_current_time_ms() <= STATE_CHANGE_TIME_OUT)
     {
         thread_loop();
     }

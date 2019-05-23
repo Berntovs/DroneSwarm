@@ -10,7 +10,7 @@
 
 
 nrfx_timer_t timer_0 = NRFX_TIMER_INSTANCE(0);
-nrfx_timer_t timer_1 = NRFX_TIMER_INSTANCE(1);
+nrfx_timer_t timer_1 = NRFX_TIMER_INSTANCE(2);
 
 static nrfx_timer_t rtc_timer;
 
@@ -86,15 +86,17 @@ uint32_t err_code = NRF_SUCCESS;
 
 
 nrfx_timer_config_t timer_cfg = NRFX_TIMER_DEFAULT_CONFIG;
+timer_cfg.frequency = NRF_TIMER_FREQ_31250Hz;
+timer_cfg.bit_width = 3;
 err_code = nrfx_timer_init(&timer_1, &timer_cfg, handler);
 APP_ERROR_CHECK(err_code);
 
 ticks = nrfx_timer_ms_to_ticks(&timer_1, time_ms);
-/*
+
 nrfx_timer_extended_compare(
   &timer_1, NRF_TIMER_CC_CHANNEL1, ticks, NRF_TIMER_SHORT_COMPARE1_CLEAR_MASK, true);
-*/
-nrfx_timer_compare(&timer_1, 1, ticks, 1);
+
+//nrfx_timer_compare(&timer_1, 1, ticks, 1);
 nrfx_timer_enable(&timer_1);
 }
 

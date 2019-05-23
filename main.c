@@ -67,9 +67,10 @@ int main(int argc, char *argv[])
   while (true)
   {
     //__WFI();
-    pub();
-    NRF_LOG_FLUSH();
+    //pub();
+    //NRF_LOG_FLUSH();
     mqttsn_loop();
+   // __WFE();
   }
 }
 
