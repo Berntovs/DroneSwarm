@@ -6,7 +6,7 @@
 #include "pca10056.h"
 
 #define TOF_SCL_PIN   27
-#define TOF_SDA_PIN   18
+#define TOF_SDA_PIN   5
 
 // initialize I2C
 int VL53L0X_i2c_init(void);

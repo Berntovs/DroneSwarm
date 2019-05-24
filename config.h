@@ -4,9 +4,10 @@
 #include <stdbool.h>
 #include "default_config.h"
 
-#define DUAL_CHIP_ENABLE false
+#define DUAL_CHIP_ENABLE true
 #define SECONDARY_CHIP_MODE true
 #define OLD_SWARM_BOARD_MODE true
+#define DEVELOPMENT_KIT_MODE true
 
 #define STATUS_LED_PWM_TOP_VALUE STATUS_LED_PWM_TOP_VALUE_DEFAULT
 #define STATUS_LED_PWM_CLOCK_SPEED STATUS_LED_PWM_CLOCK_SPEED_DEFAULT
@@ -15,3 +16,11 @@
 #define LPS22HB_ENABLE true
 
 #define NRF_LOG_USED true
+
+#define GPIO_PIN_NOT_USED 0xff
+
+#if DUAL_CHIP_ENABLE
+#define SECONDARY_CHIP SECONDARY_CHIP_MODE
+#else
+#define SECONDARY_CHIP SECONDARY_CHIP_DEFAULT_CONFIG
+#endif

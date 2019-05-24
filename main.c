@@ -52,28 +52,42 @@
 
 #include "app_error.h"
 #include "nrf_delay.h"
+#include "nrf_log.h"
 #include "nrf_log_ctrl.h"
+#include "nrf_log_default_backends.h"
 
 #include "d_swarm_board.h"
 #include "m_mqtt.h"
 #include "m_tof.h"
-
-
+#include "m_status_led.h"
+#include "vl53l0x_def.h"
 
 /***************************************************************************************************
  * @section Main
  **************************************************************************************************/
+VL53L0X_RangingMeasurementData_t dat;
 int main(int argc, char *argv[])
 {
   //board_init();
-  tof_init();
+  ret_code_t err_code = NRF_LOG_INIT(NULL);
+  APP_ERROR_CHECK(err_code);
+
+  NRF_LOG_DEFAULT_BACKENDS_INIT();
+
+  status_led_1_init();
+  status_led_1_mode(1);
+  app_tof_init();
   while (true)
   {
     //__WFI();
     //pub();
-    //NRF_LOG_FLUSH();
+    NRF_LOG_FLUSH();
     //mqttsn_loop();
-   // __WFE();
+    // __WFE();
+    app_tof_get_range(&dat, 1);
+    NRF_LOG_INFO("%d",dat.RangeMilliMeter);
+    nrf_delay_ms(1000);
+
   }
 }
 

@@ -2,7 +2,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include "nrf_drv_spi.h"
+
+#include "nrf_spi.h"
 #include "nrfx_spim.h"
 #include "app_error.h"
 #include "app_util_platform.h"
@@ -27,7 +28,7 @@ void spi_transfer(nrfx_spim_t *spi_instance, uint8_t tx_data)
     .p_rx_buffer = &rx_data,
     .rx_length   = 8
   };
-  APP_ERROR_CHECK(nrfx_spim_xfer(&spi_instance, &simp_transf_desc, 0));
+  APP_ERROR_CHECK(nrfx_spim_xfer(spi_instance, &simp_transf_desc, 0));
 }
 
 void spi_init(void)
@@ -45,7 +46,6 @@ void spi_init(void)
     .mode = NRF_SPI_MODE_0,
     .bit_order = NRF_SPI_BIT_ORDER_MSB_FIRST,
   };
-
   err_code = nrfx_spim_init(&spi_shield, &shield_config, NULL, NULL);
   APP_ERROR_CHECK(err_code);
 

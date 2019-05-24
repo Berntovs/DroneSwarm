@@ -2,34 +2,28 @@
 #include <stdint.h>
 
 #include "vl53l0x_api.h"
-#include "vl53l0x_platform.h"
-//#include "d_swarm_board.h"
-#include "nrf_gpio.h"
-
-#define VL53L0X_TWI_ADDRESS_DEFAULT 0x29
-
-#define VL53L0X_TWI_ADDRESS_1 0x29
-#define VL53L0X_TWI_ADDRESS_2 0x30
-#define VL53L0X_TWI_ADDRESS_3 0x31
-#define VL53L0X_TWI_ADDRESS_4 0x32
-#define VL53L0X_TWI_ADDRESS_5 0x33
-#define VL53L0X_TWI_ADDRESS_6 0x34
-#define VL53L0X_TWI_ADDRESS_7 0x35
-#define VL53L0X_TWI_ADDRESS_8 0x36
-
-#define XSHUT_PIN_1 NRF_GPIO_PIN_MAP(1,8)
-#define XSHUT_PIN_2 NRF_GPIO_PIN_MAP(1,10)
-#define XSHUT_PIN_3 NRF_GPIO_PIN_MAP(1,0)
-#define XSHUT_PIN_4 NRF_GPIO_PIN_MAP(0,11)
-#define XSHUT_PIN_5 NULL
-#define XSHUT_PIN_6 NULL
-#define XSHUT_PIN_7 NULL
-#define XSHUT_PIN_8 NULL
-
-#define TOF_NUMBER_OF_SENSORS 4
-
-#define WAKE_UP_TIME 10
+#include "pca10056.h"
 
 
-void tof_init(void);
+#define RED_INDICATION_RANGE     250.0f  //In mm
+#define GREEN_INDICATION_RANGE   1000.0f //In mm
+
+#define WAKE_UP_TIME             10
+
+#define VL53L0X_I2C_DEFAULT_ADDR 0x29
+
+#define VL53L0X_I2C_ADDR_1       0x32
+#define VL53L0X_I2C_ADDR_2       0x31
+#define VL53L0X_I2C_ADDR_3       0x30
+#define VL53L0X_I2C_ADDR_4       0x29
+
+#define XSHUT_PIN_1     NRF_GPIO_PIN_MAP(1,8)
+#define XSHUT_PIN_2     NRF_GPIO_PIN_MAP(1,10)
+#define XSHUT_PIN_3     NRF_GPIO_PIN_MAP(1,0)
+#define XSHUT_PIN_4     NRF_GPIO_PIN_MAP(0,11)
+
+// Prototypes for externally used functions
+
+void app_tof_init(void);
 void app_tof_get_range(VL53L0X_RangingMeasurementData_t *RangingMeasurementData, uint8_t sensor);
+void app_tof_get_range_all(VL53L0X_RangingMeasurementData_t *sensor_one, VL53L0X_RangingMeasurementData_t *sensor_two, VL53L0X_RangingMeasurementData_t *sensor_three, VL53L0X_RangingMeasurementData_t *sensor_four, float *range_array);

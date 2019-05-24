@@ -10,11 +10,11 @@ void sensors_init(void){
     twi_init();
 
     #if BMX160_ENABLE
-    BMX160_init();
+   // BMX160_init();
     #endif
 
     #if LPS22HB_ENABLE
-    LPS22HB_init();
+    //LPS22HB_init();
     #endif
 }
 

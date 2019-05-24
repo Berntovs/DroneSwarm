@@ -148,6 +148,10 @@ void mqttsn_evt_handler(mqttsn_client_t *p_client, mqttsn_event_t *p_event)
         break;
     }
 }
+/**
+ * @dependency: mqttsn_init is dependent on status_led_1_init();
+ * 
+ */
 
 void mqttsn_init(void)
 {
@@ -161,53 +165,6 @@ void mqttsn_init(void)
     APP_ERROR_CHECK(err_code);
 
     connect_opt_init();
-    /*
-    err_code = mqttsn_client_search_gateway(&m_client, SEARCH_GATEWAY_TIMEOUT);
-    mqttsn_loop();
-    nrf_delay_ms(1000);
-    while (true)
-    {
-        err_code = mqttsn_client_search_gateway(&m_client, SEARCH_GATEWAY_TIMEOUT);
-        mqttsn_loop();
-        nrf_delay_ms(1000);
-        if (err_code != NRF_SUCCESS)
-        {
-            NRF_LOG_ERROR("SEARCH GATEWAY message could not be sent. Error: 0x%x\r\n", err_code);
-        }
-        else
-        {
-            break;
-        }
-        NRF_LOG_FLUSH();
-        nrf_delay_ms(1000);
-    }
-
-    while (true)
-    {
-        if (mqttsn_client_state_get(&m_client) == MQTTSN_CLIENT_CONNECTED)
-        {
-            err_code = mqttsn_client_disconnect(&m_client);
-            if (err_code != NRF_SUCCESS)
-            {
-                NRF_LOG_ERROR("DISCONNECT message could not be sent. Error: 0x%x\r\n", err_code);
-            }
-        }
-        else
-        {
-            err_code = mqttsn_client_connect(&m_client, &m_gateway_addr, m_gateway_id, &m_connect_opt);
-            if (err_code != NRF_SUCCESS)
-            {
-                NRF_LOG_ERROR("CONNECT message could not be sent. Error: 0x%x\r\n", err_code);
-            }
-        }
-        if (err_code != NRF_SUCCESS)
-        {
-            break;
-        }
-        NRF_LOG_FLUSH();
-        mqttsn_loop();
-        nrf_delay_ms(1000);
-    }*/
 }
 
 void mqttsn_loop(void)
@@ -217,28 +174,42 @@ void mqttsn_loop(void)
 
 void mqttsn_pub(char message)
 {
-    uint32_t err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &message, 1, &m_msg_id);
-    if (err_code != NRF_SUCCESS)
+    if (status == 2)
     {
-        NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
+        uint32_t err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &message, 1, &m_msg_id);
+        if (err_code != NRF_SUCCESS)
+        {
+            NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
+        }
+        {
+            NRF_LOG_ERROR("NOT READY TO PUBLISH");
+        }
     }
 }
 static char m = 'a';
 
 void pub(void)
 {
-    if(status == 2){
-    uint32_t err_code;
-    err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &m, 1, &m_msg_id);
-    if (err_code != NRF_SUCCESS)
+    if (status == 2)
     {
-        NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
-    }}
+        uint32_t err_code;
+        err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &m, 1, &m_msg_id);
+        if (err_code != NRF_SUCCESS)
+        {
+            NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
+        }
+    }
 }
+
+/**
+ * void mqttsn_boot(nrf_timer_event_t event_type, void *p_context)
+ * Function to be used as interupt handler for timer interupts
+ * This function will connect the the device to gateway and the client
+ */
 
 void mqttsn_boot(nrf_timer_event_t event_type, void *p_context)
 {
-     mqttsn_loop();
+    mqttsn_loop();
     uint32_t err_code;
     switch (status)
     {
