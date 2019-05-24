@@ -8,6 +8,7 @@
 #include "m_mqtt.h"
 #include "m_timer.h"
 #include "m_status_led.h"
+#include "m_tof.h"
 
 #include "d_swarm_board.h"
 #include "config.h"
@@ -31,6 +32,7 @@ void log_init(void)
  * timer_1_init(time[ms], event handler) -> for starting timer 1 with inturupt with given time and handler
  * status_led_1_init() -> start status led 1
  * status_led_2_init() -> start status led 2
+ * app_tof_init() -> start all Vl53L0X sensors
  */
 
 void secondary_chip_init(void)
@@ -46,12 +48,14 @@ void main_chip_init(void)
     log_init();
     status_led_1_init();
     status_led_2_init();
+    app_tof_init();
 }
 
 void single_chip_init(void)
 {
     log_init();
     status_led_1_init();
+    app_tof_init();
     mqttsn_init();
     timer_1_init(1000, mqttsn_boot); // dependent on mqttsn_init
 }

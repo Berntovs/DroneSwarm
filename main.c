@@ -49,6 +49,7 @@
  *
  */
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "app_error.h"
 #include "nrf_delay.h"
@@ -61,33 +62,34 @@
 #include "m_tof.h"
 #include "m_status_led.h"
 #include "vl53l0x_def.h"
+#include "m_motor.h"
+#include "d_encoder2.h"
 
-/***************************************************************************************************
- * @section Main
- **************************************************************************************************/
-VL53L0X_RangingMeasurementData_t dat;
-int main(int argc, char *argv[])
-{
-  //board_init();
+
+void main(void)
+a{
   ret_code_t err_code = NRF_LOG_INIT(NULL);
   APP_ERROR_CHECK(err_code);
 
   NRF_LOG_DEFAULT_BACKENDS_INIT();
+  static motor_direction_t dir = {
+      .direction = 1,};
 
-  status_led_1_init();
-  status_led_1_mode(1);
-  app_tof_init();
+  static motor_speed_t sp = {
+      .speed = 80,};
+
+  gpio_init();
+  init_motor_pwm();
+  motor_direction(&dir);
+  motor_speed(&sp);
+  motor_run();
+
   while (true)
   {
-    //__WFI();
-    //pub();
+    data1();
+    data2();
     NRF_LOG_FLUSH();
-    //mqttsn_loop();
-    // __WFE();
-    app_tof_get_range(&dat, 1);
-    NRF_LOG_INFO("%d",dat.RangeMilliMeter);
-    nrf_delay_ms(1000);
-
+    nrf_delay_ms(200);
   }
 }
 
