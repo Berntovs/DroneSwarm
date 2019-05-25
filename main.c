@@ -55,63 +55,25 @@
 #include "nrf_delay.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-#include "nrf_log_default_backends.h"
+#include "m_mqtt.h"
+#include "m_motor.h"
+#include "m_SPI.h"
 
 #include "d_swarm_board.h"
-#include "m_mqtt.h"
-#include "m_tof.h"
-#include "m_status_led.h"
-#include "vl53l0x_def.h"
-#include "m_motor.h"
-#include "d_encoder2.h"
-#include "m_spi.h"
-#include "nrf_delay.h"
+uint8_t dat = 1;
 
-VL53L0X_RangingMeasurementData_t dat;
 void main(void)
 {
-  ret_code_t err_code = NRF_LOG_INIT(NULL);
-  APP_ERROR_CHECK(err_code);
-
-  NRF_LOG_DEFAULT_BACKENDS_INIT();
-#if SECONDARY_CHIP
-  uint8_t data_tx[5] = {send_motor_speed, 0,50,0,50};
-  spim_0_init();
-
-  while (true)
-  {
-     spim_0_transfer(data_tx, 5);
-      nrf_delay_ms(1000);
-  }
-#else
-  //spis_0_init();
-  app_tof_init();
-  gpio_init();
-  init_motor_pwm();
-  motor_run();
+  board_init();
+  //spim_0_transfer(&dat, 1);
   
-  selectdirection.direction = 1;
-  motor_direction(&selectdirection);
-  spis_0_init();
   while (true)
   {
-    data1();
-    data2();
-    app_tof_get_range(&dat, 1);
-    NRF_LOG_INFO("range: %d", dat.RangeMilliMeter);
     NRF_LOG_FLUSH();
-
-    nrf_delay_ms(200);
-    //speed.speed_a = 80;
-    //motor_speed(&speed);
-    //nrf_delay_ms(1000);
-    speed.speed_a = 0;
-     //motor_speed(&speed);
-     //nrf_delay_ms(1000);
-
+    //mqttsn_loop();
+    nrf_delay_ms(100);
+    
   }
-
-#endif
 }
 
 /**

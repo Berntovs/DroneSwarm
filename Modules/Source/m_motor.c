@@ -11,7 +11,7 @@
 #include "nrf_drv_pwm.h"
 
 
-static nrfx_pwm_t MOTOR_PWM = NRFX_PWM_INSTANCE(1); //Start motor pwm instance
+static nrfx_pwm_t MOTOR_PWM = NRFX_PWM_INSTANCE(0); //Start motor pwm instance
 
 static void pwm_event_handler(nrfx_pwm_evt_type_t event_type);
 
@@ -40,7 +40,8 @@ void init_motor_pwm(void)
             .step_mode = PWM_DECODER_MODE_RefreshCount};
     APP_ERROR_CHECK(nrfx_pwm_init(&MOTOR_PWM, &motor_pwm_config, NULL));
 
-    selectdirection.direction = 0;
+    selectdirection.direction = 1;
+    motor_direction(&selectdirection);
     speed.speed_a = 0;
     speed.speed_b = 0;
 
@@ -110,7 +111,7 @@ void motor_speed(motor_speed_t *speed)
 {
     //Throttle_values.channel_0 = 100 -(uint16_t)speed->speedA;
     Throttle_values.channel_0 = 100 - speed->speed_a;
-    Throttle_values.channel_1 = 100 - speed->speed_a;
+    Throttle_values.channel_1 = 100 - speed->speed_b;
 }
 
 void motor_run(void)

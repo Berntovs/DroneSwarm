@@ -100,3 +100,6 @@ nrfx_timer_extended_compare(
 nrfx_timer_enable(&timer_1);
 }
 
+void timer_1_uninit(void){
+nrfx_timer_uninit(&timer_1);
+}

@@ -6,3 +6,4 @@
 
 void rtc_0_init(void);
 void timer_1_init(uint32_t time, nrfx_timer_event_handler_t handler);
+void timer_1_uninit(void);

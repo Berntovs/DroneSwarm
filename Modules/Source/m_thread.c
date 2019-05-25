@@ -68,13 +68,13 @@ static void timer_init(void)
 
 void thread_setup(void)
 {
-    rtc_0_init();
+
     timer_init();
     scheduler_init();
     thread_instance_init();
     bsp_init(0, bsp_event_handler);
     APP_ERROR_CHECK(bsp_thread_init(thread_ot_instance_get()));
-    thread_connection_setup();
+    thread_loop();
 }
 
 otInstance *get_thread_instance(void)
@@ -91,14 +91,4 @@ void thread_loop(void)
     {
         //thread_sleep();
     }
-}
-
-void thread_connection_setup(void)
-{
-   while (rtc_get_current_time_ms() <= STATE_CHANGE_TIME_OUT)
-    {
-        thread_loop();
-    }
-    NRF_LOG_INFO("State decided!");
-    NRF_LOG_FLUSH();
 }
