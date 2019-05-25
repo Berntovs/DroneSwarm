@@ -1,11 +1,12 @@
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #include "cJSON.h"
 
 #include "m_JSON.h"
 
-example on predefined parsers with variable input
+
 void location_parser(uint16_t _address, int16_t _x_cor, int16_t _y_cor, char *p_out)
 {
    cJSON *root = cJSON_CreateObject();

@@ -82,6 +82,8 @@
       <file file_name="../../../../../../components/libraries/twi_mngr/nrf_twi_mngr.c" />
       <file file_name="../../../../../../components/libraries/twi_sensor/nrf_twi_sensor.c" />
       <file file_name="../../../../../../components/libraries/queue/nrf_queue.c" />
+      <file file_name="../../../../../../external/cJSON/cJSON.c" />
+      <file file_name="../../../../../../external/cJSON/cJSON_iot_hooks.c" />
     </folder>
     <folder Name="OpenThread">
       <file file_name="../../../../../../external/openthread/lib/nrf52840/gcc/libopenthread-cli-ftd.a" />
@@ -208,7 +210,6 @@
         <file file_name="../../../Modules/include/m_location.h" />
         <file file_name="../../../Modules/include/m_min_max.h" />
         <file file_name="../../../Modules/include/m_motor.h" />
-        <file file_name="../../../Modules/include/m_mqtt.h" />
         <file file_name="../../../Modules/include/m_Real_Time_Clock.h" />
         <file file_name="../../../Modules/include/m_sensors.h">
           <configuration Name="Debug" build_exclude_from_build="No" />
@@ -222,6 +223,7 @@
         <file file_name="../../../Modules/include/m_batt_meas.h" />
         <file file_name="../../../Modules/include/m_mqttsn_message.h" />
         <file file_name="../../../Modules/include/m_timer.h" />
+        <file file_name="../../../Modules/include/m_mqtt.h" />
       </folder>
     </folder>
     <folder Name="TOF">
@@ -252,7 +254,7 @@
     </folder>
     <configuration
       Name="Debug"
-      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src;C:\\nordic\\SDKTZ3\\modules\\nrfx\\drivers\\src\\;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\registermaps;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\inc;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\src" />
+      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src;C:\\nordic\\SDKTZ3\\modules\\nrfx\\drivers\\src\\;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\registermaps;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\inc;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\src;C:\\nordic\\SDKTZ3\\external\\cJSON" />
   </project>
   <configuration
     Name="Release"

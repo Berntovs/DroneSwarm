@@ -22,7 +22,7 @@ static uint8_t              m_gateway_id;                                   /**<
 static mqttsn_connect_opt_t m_connect_opt;                                  /**< Connect options for the MQTT-SN client. */
 static bool                 m_subscribed       = 0;                         /**< Current subscription state. */
 static uint16_t             m_msg_id           = 0;                         /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
-static char                 m_client_id[]      = "nRF52840_subscriber";     /**< The MQTT-SN Client's ID. */
+static char                 m_client_id[]      = "123";     /**< The MQTT-SN Client's ID. */
 static char                 m_topic_name[]     = "nRF52840_resources/led3"; /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
 static mqttsn_topic_t       m_topic            =                            /**< Topic corresponding to subscriber's BSP_LED_2. */
 {

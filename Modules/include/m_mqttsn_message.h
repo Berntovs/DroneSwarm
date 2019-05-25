@@ -8,3 +8,8 @@
 #define SET_MOTOR_SPEED 0x02
 
 void message_decoder(uint8_t *p_packet);
+
+typedef struct {
+uint8_t id;
+uint8_t *data;
+}data;

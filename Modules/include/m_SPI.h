@@ -29,7 +29,8 @@ typedef enum
 
 #if SECONDARY_CHIP
 void spim_0_init(void);
-void spim_0_transfer(uint8_t *p_tx_data, uint8_t tx_data_length);
+void spim_0_transfer(uint8_t *p_tx_data);
 #else
 void spis_0_init(void);
 #endif
+void get_rx_buf(uint8_t * _buf);

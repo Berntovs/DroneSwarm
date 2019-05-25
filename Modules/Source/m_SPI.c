@@ -13,7 +13,8 @@
 #include "nrfx_spim.h"
 #include "nrfx_spis.h"
 #include "m_spi.h"
-
+#include "m_tof.h"
+#include "vl53l0x_api.h"
 //#if SECONDARY_CHIP
 static uint8_t rx_buf[SPIM_0_BUFFER_LENGTH];
 static uint8_t tx_buf[SPIM_0_BUFFER_LENGTH];
@@ -26,7 +27,7 @@ void spim_0_event_handler(nrfx_spim_evt_t const *p_event, void *p_context)
   }
 }
 
-void spim_0_transfer(uint8_t *p_tx_data, uint8_t tx_data_length)
+void spim_0_transfer(uint8_t *p_tx_data)
 {
   //for (uint8_t i = 0; i < tx_data_length; i++)
   //{
@@ -53,10 +54,9 @@ void spim_0_init(void)
 }
 
 //#else
-static uint8_t rx_buf[SPIS_0_BUFFER_LENGTH];
-static uint8_t tx_buf[SPIS_0_BUFFER_LENGTH];
 static nrfx_spis_t spis_0 = NRFX_SPIS_INSTANCE(2);
 static uint8_t a = 0;
+VL53L0X_RangingMeasurementData_t dat_tof;
 void spis_0_event_handler(nrfx_spis_evt_t const *p_event, void *p_context)
 {
   if (p_event->evt_type == NRFX_SPIS_XFER_DONE)
@@ -69,6 +69,11 @@ void spis_0_event_handler(nrfx_spis_evt_t const *p_event, void *p_context)
       speed.speed_b = rx_buf[2];
       motor_speed(&speed);
       motor_run();
+      break;
+    case 3:
+       app_tof_get_range(&dat_tof, 1);
+       rx_buf[0] = dat_tof.RangeMilliMeter >> 8;
+       rx_buf[1] = dat_tof.RangeMilliMeter;
       break;
 
     default:
@@ -97,3 +102,8 @@ void spis_0_init(void)
   NRF_LOG_RAW_INFO("[SUCCESS] SPIM_0 is enabled \n");
 }
 //#endif
+
+
+void get_rx_buf(uint8_t * _buf){
+  _buf = rx_buf;
+}
