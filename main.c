@@ -66,6 +66,7 @@
 #include "d_encoder2.h"
 #include "m_spi.h"
 #include "nrf_delay.h"
+#include "m_sensors.h"
 
 VL53L0X_RangingMeasurementData_t dat;
 void main(void)
@@ -74,44 +75,35 @@ void main(void)
   APP_ERROR_CHECK(err_code);
 
   NRF_LOG_DEFAULT_BACKENDS_INIT();
-#if SECONDARY_CHIP
-  uint8_t data_tx[5] = {send_motor_speed, 0,50,0,50};
-  spim_0_init();
 
-  while (true)
-  {
-     spim_0_transfer(data_tx, 5);
-      nrf_delay_ms(1000);
-  }
-#else
   //spis_0_init();
-  app_tof_init();
-  gpio_init();
-  init_motor_pwm();
-  motor_run();
-  
-  selectdirection.direction = 1;
-  motor_direction(&selectdirection);
-  spis_0_init();
+  //app_tof_init();
+  //gpio_init();
+  //init_motor_pwm();
+
+  sensor_mngr_init();
+  HTS221TR_start();
   while (true)
   {
-    data1();
-    data2();
-    app_tof_get_range(&dat, 1);
-    NRF_LOG_INFO("range: %d", dat.RangeMilliMeter);
+//    data1();
+//    data2();
+//    app_tof_get_range(&dat, 1);
+//    NRF_LOG_INFO("range: %d", dat.RangeMilliMeter);
     NRF_LOG_FLUSH();
 
-    nrf_delay_ms(200);
+    nrf_delay_ms(1000);
     //speed.speed_a = 80;
     //motor_speed(&speed);
     //nrf_delay_ms(1000);
-    speed.speed_a = 0;
-     //motor_speed(&speed);
-     //nrf_delay_ms(1000);
+    //speed.speed_a = 0;
+    //motor_speed(&speed);
+    //nrf_delay_ms(1000);
+    get_lps22hb_data();
+    NRF_LOG_FLUSH();
 
   }
 
-#endif
+
 }
 
 /**
