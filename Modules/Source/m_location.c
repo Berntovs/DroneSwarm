@@ -17,6 +17,8 @@
 //uint32_t angle = 0;
 //int32_t xdirection;
 //int32_t ydirection;
+
+//Uncomment difference = (leftdifference + rightdifference)/2; and comment difference = rightdifference if using two matching motors with encoder
     
     uint32_t leftencodervalue;
     uint32_t rightencodervalue;
@@ -59,7 +61,8 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         {
         leftdifference = leftencodervalue - oldleftencodervalue;
         rightdifference = rightencodervalue - oldrightencodervalue;
-        difference = (leftdifference + rightdifference)/2;
+        //difference = (leftdifference + rightdifference)/2;
+        difference = rightdifference
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue;
         
@@ -87,7 +90,8 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         {
         leftdifference = leftencodervalue - oldleftencodervalue;
         rightdifference = rightencodervalue - oldrightencodervalue;
-        difference = (leftdifference + rightdifference)/2;
+        //difference = (leftdifference + rightdifference)/2;
+        difference = rightdifference
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue;      
         tempangle = location_and_angle->angle;
@@ -106,7 +110,8 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         {
         leftdifference = leftencodervalue - oldleftencodervalue;
         rightdifference = rightencodervalue - oldrightencodervalue;
-        difference = (leftdifference + rightdifference)/2;
+        //difference = (leftdifference + rightdifference)/2;
+        difference = rightdifference
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue;
         tempangle = location_and_angle->angle;
@@ -133,7 +138,8 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         {
         leftdifference = leftencodervalue - oldleftencodervalue;
         rightdifference = rightencodervalue - oldrightencodervalue;
-        difference = (leftdifference + rightdifference)/2;
+        //difference = (leftdifference + rightdifference)/2;
+        difference = rightdifference
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue; 
         tempangle = location_and_angle->angle;
