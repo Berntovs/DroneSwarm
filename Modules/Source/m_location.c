@@ -62,7 +62,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         leftdifference = leftencodervalue - oldleftencodervalue;
         rightdifference = rightencodervalue - oldrightencodervalue;
         //difference = (leftdifference + rightdifference)/2;
-        difference = rightdifference
+        difference = rightdifference;
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue;
         
@@ -91,7 +91,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         leftdifference = leftencodervalue - oldleftencodervalue;
         rightdifference = rightencodervalue - oldrightencodervalue;
         //difference = (leftdifference + rightdifference)/2;
-        difference = rightdifference
+        difference = rightdifference;
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue;      
         tempangle = location_and_angle->angle;
@@ -111,7 +111,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         leftdifference = leftencodervalue - oldleftencodervalue;
         rightdifference = rightencodervalue - oldrightencodervalue;
         //difference = (leftdifference + rightdifference)/2;
-        difference = rightdifference
+        difference = rightdifference;
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue;
         tempangle = location_and_angle->angle;
@@ -139,7 +139,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         leftdifference = leftencodervalue - oldleftencodervalue;
         rightdifference = rightencodervalue - oldrightencodervalue;
         //difference = (leftdifference + rightdifference)/2;
-        difference = rightdifference
+        difference = rightdifference;
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue; 
         tempangle = location_and_angle->angle;
