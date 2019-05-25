@@ -133,6 +133,7 @@
 #else
 ///////////PRIMARY CHIP PIN MAP///////////////////
 #if OLD_SWARM_BOARD_MODE
+
 #define GPIO_1_PIN NRF_GPIO_PIN_MAP(1, 14)
 #define GPIO_2_PIN NRF_GPIO_PIN_MAP(0, 03)
 #define GPIO_3_PIN NRF_GPIO_PIN_MAP(1, 12)
