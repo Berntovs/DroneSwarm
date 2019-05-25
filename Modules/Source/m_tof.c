@@ -50,16 +50,6 @@ void app_tof_get_range_all(VL53L0X_RangingMeasurementData_t *sensor_one, VL53L0X
   range_array[1] = (float)sensor_two->RangeMilliMeter;
   range_array[2] = (float)sensor_three->RangeMilliMeter;
   range_array[3] = (float)sensor_four->RangeMilliMeter;
-
-  // Compute indicator value for nearest obstacle, to be indicated on LED 2.
-  float red_obstacle_value_percentage   = (float)(((min(min(min(sensor_one->RangeMilliMeter, sensor_two->RangeMilliMeter), sensor_three->RangeMilliMeter), sensor_four->RangeMilliMeter))-20.0f)/(RED_INDICATION_RANGE)); // 100% if no obstacle within range
-  float green_obstacle_value_percentage = (float)(((min(min(min(sensor_one->RangeMilliMeter, sensor_two->RangeMilliMeter), sensor_three->RangeMilliMeter), sensor_four->RangeMilliMeter))-20.0f)/(GREEN_INDICATION_RANGE)); // 100% if no obstacle within range
-
-  uint16_t red_obstacle_value    = (uint16_t)(1000.0f * (1.0f - check_lower_upper_range(red_obstacle_value_percentage, 0.0f, 1.0f)));
-  uint16_t green_obstacle_value  = (uint16_t)(1000.0f * (1.0f - check_lower_upper_range(green_obstacle_value_percentage, 0.0f, 1.0f)));
-
-  //TODO: Move this somewhere else to ensure modularity
-  rgb_update_led_color(2, red_obstacle_value, green_obstacle_value - red_obstacle_value, 0);
 }
 
 void app_tof_setAddress(VL53L0X_Dev_t * device, uint8_t newAddr)

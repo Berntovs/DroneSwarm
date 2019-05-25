@@ -20,20 +20,15 @@ typedef struct
 
 typedef struct
 {
-  uint16_t speed;
+  uint16_t speed_a;
+  uint16_t speed_b;
 }motor_speed_t;
 
 
 //Initial motor direction and speed
- static motor_direction_t selectdirection =
- {
- .direction = 0,
- };
+ static motor_direction_t selectdirection;
 
- static motor_speed_t speed =
- {
- .speed = 0,
- };
+ static motor_speed_t speed;
 
 void motor_direction(motor_direction_t *direction);
 void motor_speed(motor_speed_t *speed);

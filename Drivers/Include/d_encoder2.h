@@ -2,8 +2,8 @@
 #include "d_swarm_board.h"
 
 
-#define encoderA_left	   GPIO_1_PIN
-#define encoderA_right	 GPIO_2_PIN
+#define encoderA_left	 MOTOR_ENCODER_A1_PIN
+#define encoderA_right	 MOTOR_ENCODER_B1_PIN
 
 
 typedef struct

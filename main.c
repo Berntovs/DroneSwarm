@@ -64,33 +64,44 @@
 #include "vl53l0x_def.h"
 #include "m_motor.h"
 #include "d_encoder2.h"
+#include "m_spi.h"
 
-
+VL53L0X_RangingMeasurementData_t dat;
 void main(void)
-a{
+{
   ret_code_t err_code = NRF_LOG_INIT(NULL);
   APP_ERROR_CHECK(err_code);
 
   NRF_LOG_DEFAULT_BACKENDS_INIT();
-  static motor_direction_t dir = {
-      .direction = 1,};
-
-  static motor_speed_t sp = {
-      .speed = 80,};
-
+#if SECONDARY_CHIP
+  uint8_t data_tx[5] = {send_motor_speed, 0,50,0,50};
+  spim_0_init();
+   spim_0_transfer(&data_tx, 5);
+  while (true)
+  {
+   
+  }
+#else
+  spis_0_init();
+  app_tof_init();
   gpio_init();
   init_motor_pwm();
-  motor_direction(&dir);
-  motor_speed(&sp);
   motor_run();
+
+  selectdirection.direction = 1;
+  motor_direction(&selectdirection);
 
   while (true)
   {
     data1();
     data2();
+    app_tof_get_range(&dat, 1);
+    NRF_LOG_INFO("range: %d", dat.RangeMilliMeter);
     NRF_LOG_FLUSH();
     nrf_delay_ms(200);
   }
+
+#endif
 }
 
 /**

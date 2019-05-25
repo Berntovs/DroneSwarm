@@ -19,9 +19,9 @@ nrfx_pwm_t m_pwm2 = NRFX_PWM_INSTANCE(2);
 
 nrfx_pwm_config_t const status_led_1_config = {
     .output_pins = {
-        STATUS_LED_1_R_PIN | NRFX_PWM_PIN_INVERTED, // channel 0
-        STATUS_LED_1_G_PIN | NRFX_PWM_PIN_INVERTED, // channel 1
-        STATUS_LED_1_B_PIN | NRFX_PWM_PIN_INVERTED, // channel 2
+        STATUS_LED_R_1_PIN | NRFX_PWM_PIN_INVERTED, // channel 0
+        STATUS_LED_G_1_PIN | NRFX_PWM_PIN_INVERTED, // channel 1
+        STATUS_LED_B_1_PIN | NRFX_PWM_PIN_INVERTED, // channel 2
         NRFX_PWM_PIN_NOT_USED                       // channel 3
 
     },
@@ -34,9 +34,9 @@ nrfx_pwm_config_t const status_led_1_config = {
 
 nrfx_pwm_config_t const status_led_2_config = {
     .output_pins = {
-        STATUS_LED_2_R_PIN | NRFX_PWM_PIN_INVERTED, // channel 0
-        STATUS_LED_2_G_PIN | NRFX_PWM_PIN_INVERTED, // channel 1
-        STATUS_LED_2_B_PIN | NRFX_PWM_PIN_INVERTED, // channel 2
+        STATUS_LED_R_2_PIN | NRFX_PWM_PIN_INVERTED, // channel 0
+        STATUS_LED_G_2_PIN | NRFX_PWM_PIN_INVERTED, // channel 1
+        STATUS_LED_B_2_PIN | NRFX_PWM_PIN_INVERTED, // channel 2
         NRFX_PWM_PIN_NOT_USED                       // channel 3
 
     },

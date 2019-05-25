@@ -1,5 +1,4 @@
 #include "m_motor.h"
-//#include "nrf_drv_pwm.h"
 #include "nrfx_pwm.h"
 #include "nrf_pwm.h"
 #include "app_error.h"
@@ -27,9 +26,9 @@ void init_motor_pwm(void)
         {
             .output_pins =
                 {
-                    MOTOR_PWM_A_PIN | NRFX_PWM_PIN_INVERTED, // Motor 0
+                    MOTOR_A_PWM_PIN | NRFX_PWM_PIN_INVERTED, // Motor 0
                     //PWM_PIN_0,
-                    MOTOR_PWM_B_PIN | NRFX_PWM_PIN_INVERTED, // Motor 1
+                    MOTOR_B_PWM_PIN | NRFX_PWM_PIN_INVERTED, // Motor 1
                     NRFX_PWM_PIN_NOT_USED,                   // Channel 2 Not in use
                     NRFX_PWM_PIN_NOT_USED                    // Channel 3 Not in use
                 },
@@ -41,15 +40,19 @@ void init_motor_pwm(void)
             .step_mode = PWM_DECODER_MODE_RefreshCount};
     APP_ERROR_CHECK(nrfx_pwm_init(&MOTOR_PWM, &motor_pwm_config, NULL));
 
+    selectdirection.direction = 0;
+    speed.speed_a = 0;
+    speed.speed_b = 0;
+
     Throttle_values.channel_0 = 0;
     Throttle_values.channel_1 = 0;
     Throttle_values.channel_2 = 0;
     Throttle_values.channel_3 = 0;
 
-    nrf_gpio_cfg_output(MOTOR_AIN_1_PIN);
-    nrf_gpio_cfg_output(MOTOR_AIN_2_PIN);
-    nrf_gpio_cfg_output(MOTOR_BIN_1_PIN);
-    nrf_gpio_cfg_output(MOTOR_BIN_2_PIN);
+    nrf_gpio_cfg_output(MOTOR_A_IN_1_PIN);
+    nrf_gpio_cfg_output(MOTOR_A_IN_2_PIN);
+    nrf_gpio_cfg_output(MOTOR_B_IN_1_PIN);
+    nrf_gpio_cfg_output(MOTOR_B_IN_2_PIN);
 }
 
 void motor_direction(motor_direction_t *selectdirection)
@@ -59,42 +62,42 @@ void motor_direction(motor_direction_t *selectdirection)
     {
     //Full stop
     case 0:
-        nrf_gpio_pin_clear(MOTOR_AIN_1_PIN);
-        nrf_gpio_pin_clear(MOTOR_AIN_2_PIN);
-        nrf_gpio_pin_clear(MOTOR_BIN_1_PIN);
-        nrf_gpio_pin_clear(MOTOR_BIN_2_PIN);
+        nrf_gpio_pin_clear(MOTOR_A_IN_1_PIN);
+        nrf_gpio_pin_clear(MOTOR_A_IN_2_PIN);
+        nrf_gpio_pin_clear(MOTOR_B_IN_1_PIN);
+        nrf_gpio_pin_clear(MOTOR_B_IN_2_PIN);
         break;
 
     //Forward
     case 1:
-        nrf_gpio_pin_set(MOTOR_AIN_1_PIN);
-        nrf_gpio_pin_clear(MOTOR_AIN_2_PIN);
-        nrf_gpio_pin_set(MOTOR_BIN_1_PIN);
-        nrf_gpio_pin_clear(MOTOR_BIN_2_PIN);
+        nrf_gpio_pin_set(MOTOR_A_IN_1_PIN);
+        nrf_gpio_pin_clear(MOTOR_A_IN_2_PIN);
+        nrf_gpio_pin_set(MOTOR_B_IN_1_PIN);
+        nrf_gpio_pin_clear(MOTOR_B_IN_2_PIN);
         break;
 
     //Reverse
     case 2:
-        nrf_gpio_pin_clear(MOTOR_AIN_1_PIN);
-        nrf_gpio_pin_set(MOTOR_AIN_2_PIN);
-        nrf_gpio_pin_clear(MOTOR_BIN_1_PIN);
-        nrf_gpio_pin_set(MOTOR_BIN_2_PIN);
+        nrf_gpio_pin_clear(MOTOR_A_IN_1_PIN);
+        nrf_gpio_pin_set(MOTOR_A_IN_2_PIN);
+        nrf_gpio_pin_clear(MOTOR_B_IN_1_PIN);
+        nrf_gpio_pin_set(MOTOR_B_IN_2_PIN);
         break;
 
     //Turn CW
     case 3:
-        nrf_gpio_pin_set(MOTOR_AIN_1_PIN);
-        nrf_gpio_pin_clear(MOTOR_AIN_2_PIN);
-        nrf_gpio_pin_clear(MOTOR_BIN_1_PIN);
-        nrf_gpio_pin_set(MOTOR_BIN_2_PIN);
+        nrf_gpio_pin_set(MOTOR_A_IN_1_PIN);
+        nrf_gpio_pin_clear(MOTOR_A_IN_2_PIN);
+        nrf_gpio_pin_clear(MOTOR_B_IN_1_PIN);
+        nrf_gpio_pin_set(MOTOR_B_IN_2_PIN);
         break;
 
     //Turn CCW
     case 4:
-        nrf_gpio_pin_clear(MOTOR_AIN_1_PIN);
-        nrf_gpio_pin_set(MOTOR_AIN_2_PIN);
-        nrf_gpio_pin_set(MOTOR_BIN_1_PIN);
-        nrf_gpio_pin_clear(MOTOR_BIN_2_PIN);
+        nrf_gpio_pin_clear(MOTOR_A_IN_1_PIN);
+        nrf_gpio_pin_set(MOTOR_A_IN_2_PIN);
+        nrf_gpio_pin_set(MOTOR_B_IN_1_PIN);
+        nrf_gpio_pin_clear(MOTOR_B_IN_2_PIN);
         break;
 
     default:
@@ -106,8 +109,8 @@ void motor_direction(motor_direction_t *selectdirection)
 void motor_speed(motor_speed_t *speed)
 {
     //Throttle_values.channel_0 = 100 -(uint16_t)speed->speedA;
-    Throttle_values.channel_0 = 100 - 40;
-    Throttle_values.channel_1 = 100 - 90;
+    Throttle_values.channel_0 = 100 - speed->speed_a;
+    Throttle_values.channel_1 = 100 - speed->speed_a;
 }
 
 void motor_run(void)
