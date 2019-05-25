@@ -78,6 +78,10 @@
       <file file_name="../../../../../../components/libraries/ringbuf/nrf_ringbuf.c" />
       <file file_name="../../../../../../components/libraries/experimental_section_vars/nrf_section_iter.c" />
       <file file_name="../../../../../../components/libraries/strerror/nrf_strerror.c" />
+      <file file_name="../../../../../../components/drivers_ext/lps22hb/lps22hb.c" />
+      <file file_name="../../../../../../components/libraries/twi_mngr/nrf_twi_mngr.c" />
+      <file file_name="../../../../../../components/libraries/twi_sensor/nrf_twi_sensor.c" />
+      <file file_name="../../../../../../components/libraries/queue/nrf_queue.c" />
     </folder>
     <folder Name="OpenThread">
       <file file_name="../../../../../../external/openthread/lib/nrf52840/gcc/libopenthread-cli-ftd.a" />
@@ -183,7 +187,7 @@
         <file file_name="../../../Modules/Source/m_mqtt.c" />
         <file file_name="../../../Modules/Source/m_Real_Time_Clock.c" />
         <file file_name="../../../Modules/Source/m_sensors.c">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
+          <configuration Name="Debug" build_exclude_from_build="No" />
         </file>
         <file file_name="../../../Modules/Source/m_SPI.c" />
         <file file_name="../../../Modules/Source/m_status_led.c" />
@@ -207,7 +211,7 @@
         <file file_name="../../../Modules/include/m_mqtt.h" />
         <file file_name="../../../Modules/include/m_Real_Time_Clock.h" />
         <file file_name="../../../Modules/include/m_sensors.h">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
+          <configuration Name="Debug" build_exclude_from_build="No" />
         </file>
         <file file_name="../../../Modules/include/m_SPI.h" />
         <file file_name="../../../Modules/include/m_status_led.h" />
@@ -257,6 +261,6 @@
   <configuration
     Name="Debug"
     c_preprocessor_definitions="DEBUG; DEBUG_NRF"
-    c_user_include_directories="C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\registermaps;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\inc;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\src"
+    c_user_include_directories="C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\registermaps;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\inc;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\src;C:\\nordic\\SDKTZ3\\components\\drivers_ext\\lps22hb;C:\\nordic\\SDKTZ3\\components\\libraries\\twi_mngr;C:\\nordic\\SDKTZ3\\components\\libraries\\twi_sensor;C:\\nordic\\SDKTZ3\\components\\libraries\\queue"
     gcc_optimization_level="None" />
 </solution>

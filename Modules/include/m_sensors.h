@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-//void HTS221TR_start(void);
-//uint32_t get_lps22hb_data(void);
+void sensor_mngr_init(void);
+void HTS221TR_start(void);
+void get_lps22hb_data(void);

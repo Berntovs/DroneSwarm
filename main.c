@@ -57,23 +57,46 @@
 #include "nrf_log_ctrl.h"
 #include "m_mqtt.h"
 #include "m_motor.h"
-#include "m_SPI.h"
-
-#include "d_swarm_board.h"
-uint8_t dat = 1;
+#include "d_encoder2.h"
+#include "m_spi.h"
+#include "nrf_delay.h"
+#include "m_sensors.h"
 
 void main(void)
 {
-  board_init();
-  //spim_0_transfer(&dat, 1);
-  
+  ret_code_t err_code = NRF_LOG_INIT(NULL);
+  APP_ERROR_CHECK(err_code);
+
+  NRF_LOG_DEFAULT_BACKENDS_INIT();
+
+  //spis_0_init();
+  //app_tof_init();
+  //gpio_init();
+  //init_motor_pwm();
+
+  sensor_mngr_init();
+  HTS221TR_start();
   while (true)
   {
+//    data1();
+//    data2();
+//    app_tof_get_range(&dat, 1);
+//    NRF_LOG_INFO("range: %d", dat.RangeMilliMeter);
     NRF_LOG_FLUSH();
-    //mqttsn_loop();
-    nrf_delay_ms(100);
-    
+
+    nrf_delay_ms(1000);
+    //speed.speed_a = 80;
+    //motor_speed(&speed);
+    //nrf_delay_ms(1000);
+    //speed.speed_a = 0;
+    //motor_speed(&speed);
+    //nrf_delay_ms(1000);
+    get_lps22hb_data();
+    NRF_LOG_FLUSH();
+
   }
+
+
 }
 
 /**
