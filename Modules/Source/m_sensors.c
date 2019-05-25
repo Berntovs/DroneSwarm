@@ -4,6 +4,10 @@
 #include "d_BMX160_twi.h"
 #include "config.h"
 
+#include "nrf_twi_sensor.h"
+#include "nrf_twi_mngr.h"
+#include "lps22hb.h"
+
 #include "m_sensors.h"
 
 void sensors_init(void){
@@ -92,3 +96,20 @@ void update_gyr_data(void){
 
 #pragma endregion
 #endif
+
+////Declared twi manager for sensors
+////NRF_TWI_MNGR_DEF(mng_twi_inst, 4, 0);
+//
+////HTS221TR 
+//NRF_TWI_SENSOR_DEF(twi_sensor_inst, &mng_twi_inst, 4);
+//LPS22HB_INSTANCE_DEF(lps22hb_inst, &twi_sensor_inst, 0x5C);
+//void HTS221TR_start(void)
+//{
+//lps22hb_init(&lps22hb_inst);
+//}
+//static lps22hb_data_t lps22hb_buffer_data;
+//uint32_t get_lps22hb_data(void)
+//{
+//lps22hb_data_read(&lps22hb_inst, NULL, &lps22hb_buffer_data, 1);
+//return lps22hb_buffer_data.pressure;
+//}
