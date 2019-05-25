@@ -65,6 +65,7 @@
 #include "m_motor.h"
 #include "d_encoder2.h"
 #include "m_spi.h"
+#include "nrf_delay.h"
 
 VL53L0X_RangingMeasurementData_t dat;
 void main(void)
@@ -76,13 +77,14 @@ void main(void)
 #if SECONDARY_CHIP
   uint8_t data_tx[5] = {send_motor_speed, 0,50,0,50};
   spim_0_init();
-   spim_0_transfer(&data_tx, 5);
+
   while (true)
   {
-   
+     spim_0_transfer(data_tx, 5);
+      nrf_delay_ms(1000);
   }
 #else
-  spis_0_init();
+  //spis_0_init();
   app_tof_init();
   gpio_init();
   init_motor_pwm();

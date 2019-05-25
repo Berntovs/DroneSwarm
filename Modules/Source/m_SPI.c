@@ -13,10 +13,10 @@
 #include "nrfx_spis.h"
 #include "m_spi.h"
 
-#if SECONDARY_CHIP
+//#if SECONDARY_CHIP
 static uint8_t rx_buf[SPIM_0_BUFFER_LENGTH];
 static uint8_t tx_buf[SPIM_0_BUFFER_LENGTH];
-static nrfx_spim_t spim_0 = NRFX_SPIM_INSTANCE(0);
+static nrfx_spim_t spim_0 = NRFX_SPIM_INSTANCE(3);
 void spim_0_event_handler(nrfx_spim_evt_t const *p_event, void *p_context)
 {
   if (p_event->type == NRFX_SPIM_EVENT_DONE)
@@ -51,7 +51,7 @@ void spim_0_init(void)
   NRF_LOG_RAW_INFO("[SUCCESS] SPIM_0 is enabled \n");
 }
 
-#else
+//#else
 static uint8_t rx_buf[SPIS_0_BUFFER_LENGTH];
 static uint8_t tx_buf[SPIS_0_BUFFER_LENGTH];
 static nrfx_spis_t spis_0 = NRFX_SPIS_INSTANCE(2);
@@ -90,4 +90,4 @@ void spis_0_init(void)
 
   NRF_LOG_RAW_INFO("[SUCCESS] SPIM_0 is enabled \n");
 }
-#endif
+//#endif
