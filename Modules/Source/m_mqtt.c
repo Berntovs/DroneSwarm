@@ -8,23 +8,26 @@
 #include "nrfx_timer.h"
 
 #include "mqttsn_client.h"
+#include "m_mqttsn_message.h"
 #include "m_thread.h"
 #include "m_mqtt.h"
-
+#include "m_timer.h"
+//nasty fix at mqttsn_client.c line 351
+//to make it work again comment the line back in
 #define SEARCH_GATEWAY_TIMEOUT 5 /**< MQTT-SN Gateway discovery procedure timeout in [s]. */
 
-static mqttsn_client_t m_client;                        /**< An MQTT-SN client instance. */
-static mqttsn_remote_t m_gateway_addr = {127, 0, 0, 1}; /**< A gateway address. */
-static uint8_t m_gateway_id;                            /**< A gateway ID. */
-static mqttsn_connect_opt_t m_connect_opt;              /**< Connect options for the MQTT-SN client. */
-static uint8_t m_led_state = 1;                         /**< Previously sent BSP_LED_2 command. */
-static uint16_t m_msg_id = 0;                           /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
-static char m_client_id[] = "127.0.0.1";                /**< The MQTT-SN Client's ID. */
-static char m_topic_name[] = "test";                    /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
-static mqttsn_topic_t m_topic =                         /**< Topic corresponding to subscriber's BSP_LED_2. */
-    {
-        .p_topic_name = (unsigned char *)m_topic_name,
-        .topic_id = 0,
+static mqttsn_client_t      m_client;                                       /**< An MQTT-SN client instance. */
+static mqttsn_remote_t      m_gateway_addr;                                 /**< A gateway address. */
+static uint8_t              m_gateway_id;                                   /**< A gateway ID. */
+static mqttsn_connect_opt_t m_connect_opt;                                  /**< Connect options for the MQTT-SN client. */
+static bool                 m_subscribed       = 0;                         /**< Current subscription state. */
+static uint16_t             m_msg_id           = 0;                         /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
+static char                 m_client_id[]      = "nRF52840_subscriber";     /**< The MQTT-SN Client's ID. */
+static char                 m_topic_name[]     = "nRF52840_resources/led3"; /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
+static mqttsn_topic_t       m_topic            =                            /**< Topic corresponding to subscriber's BSP_LED_2. */
+{
+    .p_topic_name = (unsigned char *)m_topic_name,
+    .topic_id     = 0,
 };
 
 static uint8_t status = 0;
@@ -88,6 +91,26 @@ static void regack_callback(mqttsn_event_t *p_event)
     NRF_LOG_INFO("MQTT-SN event: Topic has been registered with ID: %d.\r\n",
                  p_event->event_data.registered.packet.topic.topic_id);
 }
+/**@brief Processes data published by a broker.
+ *
+ * @
+ */
+static void received_callback(mqttsn_event_t * p_event)
+{
+    if (p_event->event_data.published.packet.topic.topic_id == m_topic.topic_id)
+    {
+        uint8_t dat[10] = {0,0,0,0,0,0,0,0,0,0}; 
+        for(uint8_t i = 0; i <= 10; i++){
+          dat[i] =p_event->event_data.published.p_payload[i];
+        }
+        NRF_LOG_INFO("MQTT-SN event: Content to subscribed topic received. %s\r\n",p_event->event_data.published.p_payload);
+        message_decoder(dat);
+    }
+    else
+    {
+        NRF_LOG_INFO("MQTT-SN event: Content to unsubscribed topic received. Dropping packet.\r\n");
+    }
+}
 
 /**@brief Processes retransmission limit reached event. */
 static void timeout_callback(mqttsn_event_t *p_event)
@@ -130,6 +153,19 @@ void mqttsn_evt_handler(mqttsn_client_t *p_client, mqttsn_event_t *p_event)
         regack_callback(p_event);
         break;
 
+    case MQTTSN_EVENT_SUBSCRIBED:
+        NRF_LOG_INFO("MQTT-SN event: Client subscribed to topic.\r\n");
+        break;
+
+    case MQTTSN_EVENT_UNSUBSCRIBED:
+        NRF_LOG_INFO("MQTT-SN event: Client unsubscribed to topic.\r\n");
+        break;
+
+    case MQTTSN_EVENT_RECEIVED:
+        NRF_LOG_INFO("MQTT-SN event: Client received content.\r\n");
+        received_callback(p_event);
+        break;
+
     case MQTTSN_EVENT_PUBLISHED:
         NRF_LOG_INFO("MQTT-SN event: Client has successfully published content.\r\n");
         break;
@@ -150,7 +186,7 @@ void mqttsn_evt_handler(mqttsn_client_t *p_client, mqttsn_event_t *p_event)
 }
 /**
  * @dependency: mqttsn_init is dependent on status_led_1_init();
- * 
+ *
  */
 
 void mqttsn_init(void)
@@ -165,6 +201,8 @@ void mqttsn_init(void)
     APP_ERROR_CHECK(err_code);
 
     connect_opt_init();
+
+    timer_1_init(2000, mqttsn_boot);
 }
 
 void mqttsn_loop(void)
@@ -199,6 +237,18 @@ void pub(void)
             NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
         }
     }
+}
+
+void sub(void){
+if(status == 2){
+        uint32_t err_code = mqttsn_client_subscribe(&m_client, m_topic.p_topic_name, 4, &m_msg_id);
+        if (err_code != NRF_SUCCESS)
+        {
+            NRF_LOG_ERROR("SUBSCRIBE message could not be sent.\r\n");
+        }else{
+          status ++;
+        }
+        }
 }
 
 /**
@@ -240,7 +290,10 @@ void mqttsn_boot(nrf_timer_event_t event_type, void *p_context)
         }
         break;
     case STATE_PUB:
-        pub();
+        sub();
+        break;
+    case 3:
+        timer_1_uninit();
         break;
 
     default:

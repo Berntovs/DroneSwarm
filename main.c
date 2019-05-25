@@ -55,20 +55,13 @@
 #include "nrf_delay.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-#include "nrf_log_default_backends.h"
-
-#include "d_swarm_board.h"
 #include "m_mqtt.h"
-#include "m_tof.h"
-#include "m_status_led.h"
-#include "vl53l0x_def.h"
 #include "m_motor.h"
 #include "d_encoder2.h"
 #include "m_spi.h"
 #include "nrf_delay.h"
 #include "m_sensors.h"
 
-VL53L0X_RangingMeasurementData_t dat;
 void main(void)
 {
   ret_code_t err_code = NRF_LOG_INIT(NULL);

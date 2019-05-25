@@ -56,6 +56,7 @@ void spim_0_init(void)
 static uint8_t rx_buf[SPIS_0_BUFFER_LENGTH];
 static uint8_t tx_buf[SPIS_0_BUFFER_LENGTH];
 static nrfx_spis_t spis_0 = NRFX_SPIS_INSTANCE(2);
+static uint8_t a = 0;
 void spis_0_event_handler(nrfx_spis_evt_t const *p_event, void *p_context)
 {
   if (p_event->evt_type == NRFX_SPIS_XFER_DONE)
@@ -64,9 +65,10 @@ void spis_0_event_handler(nrfx_spis_evt_t const *p_event, void *p_context)
     switch (id)
     {
     case send_motor_speed:
-      speed.speed_a = (rx_buf[1] << 8) | (rx_buf[2]);
-      speed.speed_b = (rx_buf[3] << 8) | (rx_buf[4]);
+      speed.speed_a = rx_buf[1];
+      speed.speed_b = rx_buf[2];
       motor_speed(&speed);
+      motor_run();
       break;
 
     default:
@@ -76,6 +78,7 @@ void spis_0_event_handler(nrfx_spis_evt_t const *p_event, void *p_context)
     nrfx_spis_buffers_set(&spis_0, tx_buf, SPIS_0_BUFFER_LENGTH, rx_buf, SPIS_0_BUFFER_LENGTH);
     NRF_LOG_FLUSH();
   }
+  NRF_LOG_INFO("hey");
 }
 
 void spis_0_init(void)

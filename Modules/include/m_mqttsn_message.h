@@ -2,13 +2,9 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "mqttsn_client.h"
+
 #define SEND_XY 0x01
+#define SET_MOTOR_SPEED 0x02
 
-typedef struct
-{
-    uint8_t command;
-    uint8_t data;
-    uint8_t data_length;
-} message_t;
-
-void message_decoder(message_t *p_message);
+void message_decoder(uint8_t *p_packet);
