@@ -44,10 +44,10 @@ void init_motor_pwm(void)
     speed.speed_a = 0;
     speed.speed_b = 0;
 
-    Throttle_values.channel_0 = 0;
-    Throttle_values.channel_1 = 0;
-    Throttle_values.channel_2 = 0;
-    Throttle_values.channel_3 = 0;
+    Throttle_values.channel_0 = 100;
+    Throttle_values.channel_1 = 100;
+    Throttle_values.channel_2 = 100;
+    Throttle_values.channel_3 = 100;
 
     nrf_gpio_cfg_output(MOTOR_A_IN_1_PIN);
     nrf_gpio_cfg_output(MOTOR_A_IN_2_PIN);

@@ -6,6 +6,7 @@
 #include "nrf_spi.h"
 #include "app_error.h"
 #include "nrf_log.h"
+#include "nrf_log_ctrl.h"
 #include "d_swarm_board.h"
 #include "config.h"
 #include "m_motor.h"
@@ -27,11 +28,11 @@ void spim_0_event_handler(nrfx_spim_evt_t const *p_event, void *p_context)
 
 void spim_0_transfer(uint8_t *p_tx_data, uint8_t tx_data_length)
 {
-  for (uint8_t i = 0; i < tx_data_length; i++)
-  {
-    tx_buf[0] = p_tx_data[0];
-  }
-  nrfx_spim_xfer_desc_t spim_0_desc = NRFX_SPIM_XFER_TRX(&tx_buf, SPIM_0_BUFFER_LENGTH, rx_buf, SPIM_0_BUFFER_LENGTH);
+  //for (uint8_t i = 0; i < tx_data_length; i++)
+  //{
+  // tx_buf[0] = p_tx_data[0];
+  //}
+  nrfx_spim_xfer_desc_t spim_0_desc = NRFX_SPIM_XFER_TRX(p_tx_data, SPIM_0_BUFFER_LENGTH, rx_buf, SPIM_0_BUFFER_LENGTH);
   APP_ERROR_CHECK(nrfx_spim_xfer(&spim_0, &spim_0_desc, 0));
 }
 
@@ -71,7 +72,9 @@ void spis_0_event_handler(nrfx_spis_evt_t const *p_event, void *p_context)
     default:
       break;
     }
-    NRF_LOG_INFO(" Transfer completed. Received data");
+    NRF_LOG_INFO(" Transfer received %d,%d,%d ", rx_buf[0], rx_buf[1], rx_buf[2]);
+    nrfx_spis_buffers_set(&spis_0, tx_buf, SPIS_0_BUFFER_LENGTH, rx_buf, SPIS_0_BUFFER_LENGTH);
+    NRF_LOG_FLUSH();
   }
 }
 
@@ -87,7 +90,7 @@ void spis_0_init(void)
 
   err_code = nrfx_spis_init(&spis_0, &spis_0_config, spis_0_event_handler, NULL);
   APP_ERROR_CHECK(err_code);
-
+  nrfx_spis_buffers_set(&spis_0, tx_buf, SPIS_0_BUFFER_LENGTH, rx_buf, SPIS_0_BUFFER_LENGTH);
   NRF_LOG_RAW_INFO("[SUCCESS] SPIM_0 is enabled \n");
 }
 #endif

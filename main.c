@@ -82,15 +82,15 @@ void main(void)
    
   }
 #else
-  spis_0_init();
+  
   app_tof_init();
   gpio_init();
   init_motor_pwm();
   motor_run();
-
+  
   selectdirection.direction = 1;
   motor_direction(&selectdirection);
-
+  spis_0_init();
   while (true)
   {
     data1();
@@ -98,7 +98,15 @@ void main(void)
     app_tof_get_range(&dat, 1);
     NRF_LOG_INFO("range: %d", dat.RangeMilliMeter);
     NRF_LOG_FLUSH();
+
     nrf_delay_ms(200);
+    //speed.speed_a = 80;
+    //motor_speed(&speed);
+    //nrf_delay_ms(1000);
+    speed.speed_a = 0;
+     //motor_speed(&speed);
+     //nrf_delay_ms(1000);
+
   }
 
 #endif

@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <string.h>
 #include "nrf_gpio.h"
-//#include "nrf_drv_pwm.h"
 #include "nrfx_pwm.h"
 #include "nrf_pwm.h"
 
