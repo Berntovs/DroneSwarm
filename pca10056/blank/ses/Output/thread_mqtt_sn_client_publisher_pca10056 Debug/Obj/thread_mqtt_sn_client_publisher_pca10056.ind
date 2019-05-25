@@ -31,6 +31,7 @@
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/nrf_twi_mngr.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/nrf_twi_sensor.o"
 "Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/nrf_queue.o"
+"Output/thread_mqtt_sn_client_publisher_pca10056 Debug/Obj/ccs811.o"
 "../../../../../../external/openthread/lib/nrf52840/gcc/libopenthread-cli-ftd.a"
 "../../../../../../external/openthread/lib/nrf52840/gcc/libopenthread-diag.a"
 "../../../../../../external/openthread/lib/nrf52840/gcc/libopenthread-ftd.a"

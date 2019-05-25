@@ -83,6 +83,9 @@ void main(void)
 
   sensor_mngr_init();
   HTS221TR_start();
+
+  ccs811_start();
+
   while (true)
   {
 //    data1();
@@ -99,6 +102,8 @@ void main(void)
     //motor_speed(&speed);
     //nrf_delay_ms(1000);
     get_lps22hb_data();
+    get_ccs811_data();
+    NRF_LOG_INFO("1 second has passed");
     NRF_LOG_FLUSH();
 
   }
