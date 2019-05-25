@@ -1,3 +1,12 @@
 
 *.d
 *.o
+pca10056/blank/ses/Output/Debug/Exe/thread_mqtt_sn_client_publisher_pca10056.elf
+pca10056/blank/ses/Output/Debug/Exe/thread_mqtt_sn_client_publisher_pca10056.hex
+pca10056/blank/ses/Output/Debug/Exe/thread_mqtt_sn_client_publisher_pca10056.map
+pca10056/blank/ses/Output/Debug/Exe/thread_mqtt_sn_client_publisher_pca10056.elf
+pca10056/blank/ses/Output/Debug/Exe/thread_mqtt_sn_client_publisher_pca10056.hex
+*.elf
+*.hex
+*.map
+*.elf
