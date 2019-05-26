@@ -71,7 +71,6 @@
       <file file_name="../../../../../../components/libraries/util/nrf_assert.c" />
       <file file_name="../../../../../../components/libraries/atomic/nrf_atomic.c" />
       <file file_name="../../../../../../components/libraries/balloc/nrf_balloc.c" />
-      <file file_name="../../../../../../external/fprintf/nrf_fprintf.c" />
       <file file_name="../../../../../../external/fprintf/nrf_fprintf_format.c" />
       <file file_name="../../../../../../components/libraries/memobj/nrf_memobj.c" />
       <file file_name="../../../../../../components/libraries/pwr_mgmt/nrf_pwr_mgmt.c" />
@@ -85,6 +84,7 @@
       <file file_name="../../../../../../external/cJSON/cJSON.c" />
       <file file_name="../../../../../../external/cJSON/cJSON_iot_hooks.c" />
       <file file_name="../../../../../../components/drivers_ext/hts221/hts221.c" />
+      <file file_name="../../../../../../external/fprintf/nrf_fprintf.c" />
     </folder>
     <folder Name="OpenThread">
       <file file_name="../../../../../../external/openthread/lib/nrf52840/gcc/libopenthread-cli-ftd.a" />
