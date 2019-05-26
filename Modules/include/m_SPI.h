@@ -7,19 +7,21 @@
 #include "nrfx_spis.h"
 #include "config.h"
 
-#define SPIM_0_MOSI_PIN UART_RX_PIN //1,15
-#define SPIM_0_MISO_PIN UART_TX_PIN //1,14
-#define SPIM_0_CS_PIN UART_CTS_PIN  //1,13
-#define SPIM_0_SCK_PIN UART_RTS_PIN //1,12
+#define SPIM_3_MOSI_PIN UART_RX_PIN //1,15
+#define SPIM_3_MISO_PIN UART_TX_PIN //1,14
+#define SPIM_3_CS_PIN UART_CTS_PIN  //1,13
+#define SPIM_3_SCK_PIN UART_RTS_PIN //1,12
 
-#define SPIS_0_MOSI_PIN UART_RTS_PIN //shld mosi
-#define SPIS_0_MISO_PIN UART_TX_PIN  //shld miso
-#define SPIS_0_CS_PIN UART_CTS_PIN   //shld cs
-#define SPIS_0_SCK_PIN UART_RX_PIN   //shld sck
+#define SPIS_2_MOSI_PIN UART_RTS_PIN //shld mosi
+#define SPIS_2_MISO_PIN UART_TX_PIN  //shld miso
+#define SPIS_2_CS_PIN UART_CTS_PIN   //shld cs
+#define SPIS_2_SCK_PIN UART_RX_PIN   //shld sck
 
-#define SPIS_0_BUFFER_LENGTH SPI_BUFFER_LENGTH_DEFAULT
-#define SPIM_0_BUFFER_LENGTH SPI_BUFFER_LENGTH_DEFAULT
+#define SPI_BUFFER_LENGTH SPI_BUFFER_LENGTH_DEFAULT
 
+/**
+ * @brief
+ */
 typedef enum
 {
     send_motor_speed = 1,
@@ -27,10 +29,24 @@ typedef enum
     get_sensor_data
 } spi_command_t;
 
-#if SECONDARY_CHIP
-void spim_0_init(void);
-void spim_0_transfer(uint8_t *p_tx_data);
-#else
-void spis_0_init(void);
-#endif
-void get_rx_buf(uint8_t * _buf);
+/**
+ * @brief Function for initialize the spim 3 instance
+ */
+void spim_3_init(void);
+
+/**
+ * @brief Function for sending data to slave, aswell for reciving data
+ *
+ * @param[in] p_tx_data pointer to data that is to be transferd
+ *
+ * @info this function will fill the rx_buffer with data from slave every time its called
+ *
+ * @info the total number of bytes that is transfered is defined by SPI_BUFFER_LENGTH
+ */
+void spim_3_transfer(uint8_t *p_tx_data);
+
+/**
+ * @brief Function for initialize the spim 2 instance
+ */
+void spis_2_init(void);
+

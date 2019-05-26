@@ -41,8 +41,8 @@ void secondary_chip_init(void)
 {
     log_init();
     status_led_1_init();
-    spim_0_init();
-    //mqttsn_init();                   // dependent of status led 1 init
+    spim_3_init();
+    mqttsn_init();                   // dependent of status led 1 init
 
 }
 
@@ -56,7 +56,7 @@ void main_chip_init(void)
     gpio_init();
     init_motor_pwm();
     motor_run();
-    spis_0_init();
+    spis_2_init();
 }
 
 void single_chip_init(void)

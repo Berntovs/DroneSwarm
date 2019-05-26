@@ -99,7 +99,7 @@ static void received_callback(mqttsn_event_t * p_event)
 {
     if (p_event->event_data.published.packet.topic.topic_id == m_topic.topic_id)
     {
-        uint8_t dat[10] = {0,0,0,0,0,0,0,0,0,0}; 
+        char dat[10]; 
         for(uint8_t i = 0; i <= 10; i++){
           dat[i] =p_event->event_data.published.p_payload[i];
         }

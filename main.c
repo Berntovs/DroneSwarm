@@ -66,28 +66,28 @@
 
 void main(void)
 {
-  APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
-  NRF_LOG_DEFAULT_BACKENDS_INIT();
+  //APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
+  //NRF_LOG_DEFAULT_BACKENDS_INIT();
   
   //ret_code_t err_code = NRF_LOG_INIT(NULL);
   //APP_ERROR_CHECK(err_code);
   //NRF_LOG_DEFAULT_BACKENDS_INIT();
 
 
-  //board_init();
-
+  board_init();
+/*
   sensor_mngr_init();
   hts221_data_init();
 		
   NRF_LOG_INFO("Inits complete");
-  NRF_LOG_FLUSH();
+  NRF_LOG_FLUSH();*/
 
-  while(1){
+  while(1){/*
     nrf_delay_ms(1000);
     get_gts221_data();
     NRF_LOG_INFO("Inside main loop");
-    NRF_LOG_FLUSH();
-    //mqttsn_loop();
+    NRF_LOG_FLUSH();*/
+    mqttsn_loop();
   }
 }
 

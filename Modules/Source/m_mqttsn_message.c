@@ -14,43 +14,36 @@
 
 #if DUAL_CHIP_ENABLE
 
-
-uint8_t motor_speeed[] ={1, 100, 65};
+uint8_t motor_speeed[] = {1, 100, 65};
 uint8_t motor_off[] = {1, 0, 0};
 uint8_t get_range[] = {3};
 uint8_t blank[];
 uint8_t buffer[10];
-void message_decoder(uint8_t *p_packet)
+
+void message_decoder(const char *  p_packet)
 {
-    //char *out;cJSON *json;
-   // json = cJSON_Parse(p_packet);
-    //char *id = cJSON_Print(json);
-    uint8_t id = p_packet[0];
+
+
+    int8_t id = p_packet[0];
     switch (id)
     {
-    case '1':
-
-    spim_0_transfer(motor_speeed);
+    case 1:
+        NRF_LOG_INFO("Command reconised, command = %d", id);
+        //spim_3_transfer(motor_speeed);
         break;
 
-    case '2':
-    spim_0_transfer(motor_off);
-        
+    case 2:
+        //spim_3_transfer(motor_off);
+        NRF_LOG_INFO("Command reconised, command = %d", id);
         break;
-    case '3':
-    /*spim_0_transfer(get_range);
-    nrf_delay_ms(10);
-    spim_0_transfer(blank);
-    get_rx_buf(&buffer);*/
-    
+    case 3:
+        NRF_LOG_INFO("Command reconised, command = %d", id);
         break;
     default:
-        //NRF_LOG_INFO("Command not reconised, command = %s, len: %s", json, id);
+        NRF_LOG_INFO("Command not reconised, command = %d", id);
         break;
     }
-        
-       // NRF_LOG_INFO("Command not reconised, command = %s, len: %s", p_packet, id);
-        
+    cJSON_Delete(json_packet);
 }
 #else
 void message_decoder(mqttsn_packet_t *p_packet)
