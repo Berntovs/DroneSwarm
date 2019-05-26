@@ -84,6 +84,7 @@
       <file file_name="../../../../../../components/libraries/queue/nrf_queue.c" />
       <file file_name="../../../../../../external/cJSON/cJSON.c" />
       <file file_name="../../../../../../external/cJSON/cJSON_iot_hooks.c" />
+      <file file_name="../../../../../../components/drivers_ext/hts221/hts221.c" />
     </folder>
     <folder Name="OpenThread">
       <file file_name="../../../../../../external/openthread/lib/nrf52840/gcc/libopenthread-cli-ftd.a" />
@@ -254,7 +255,7 @@
     </folder>
     <configuration
       Name="Debug"
-      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src;C:\\nordic\\SDKTZ3\\modules\\nrfx\\drivers\\src\\;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\registermaps;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\inc;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\src;C:\\nordic\\SDKTZ3\\external\\cJSON" />
+      c_user_include_directories="C:\\nordic\\SDKTZ3\\components\\libraries\\log\\src;C:\\nordic\\SDKTZ3\\modules\\nrfx\\drivers\\src\\;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Modules\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Include;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\registermaps;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\Drivers\\Source;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\inc;C:\\nordic\\SDKTZ3\\examples\\thread\\DroneSwarm\\VL53L0X_api\\src;C:\\nordic\\SDKTZ3\\external\\cJSON;C:\\nordic\\SDKTZ3\\components\\drivers_ext\\hts221" />
   </project>
   <configuration
     Name="Release"
