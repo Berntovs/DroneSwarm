@@ -42,7 +42,7 @@ void secondary_chip_init(void)
     log_init();
     status_led_1_init();
     spim_0_init();
-    mqttsn_init();                   // dependent of status led 1 init
+    //mqttsn_init();                   // dependent of status led 1 init
 
 }
 

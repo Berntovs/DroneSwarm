@@ -66,12 +66,12 @@
 
 void main(void)
 {
-  //APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
-  //NRF_LOG_DEFAULT_BACKENDS_INIT();
-  
-  ret_code_t err_code = NRF_LOG_INIT(NULL);
-  APP_ERROR_CHECK(err_code);
+  APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
   NRF_LOG_DEFAULT_BACKENDS_INIT();
+  
+  //ret_code_t err_code = NRF_LOG_INIT(NULL);
+  //APP_ERROR_CHECK(err_code);
+  //NRF_LOG_DEFAULT_BACKENDS_INIT();
 
 
   //board_init();

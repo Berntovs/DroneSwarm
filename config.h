@@ -5,7 +5,7 @@
 #include "default_config.h"
 
 #define DUAL_CHIP_ENABLE true
-#define SECONDARY_CHIP_MODE false
+#define SECONDARY_CHIP_MODE true
 #define OLD_SWARM_BOARD_MODE true
 #define DEVELOPMENT_KIT_MODE true
 

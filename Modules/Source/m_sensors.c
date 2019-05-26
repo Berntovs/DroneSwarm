@@ -19,85 +19,13 @@
 
 #include "app_error.h"
 
-//
-//
-//#if BMX160_ENABLE
-//#pragma region
-//static struct
-//{
-//    uint8_t x_low_data;
-//    uint8_t x_high_data;
-//    uint8_t y_low_data;
-//    uint8_t y_high_data;
-//    uint8_t z_low_data;
-//    uint8_t z_high_data;
-//}mag_data;
-//
-//static struct
-//{
-//    uint8_t x_low_data;
-//    uint8_t x_high_data;
-//    uint8_t y_low_data;
-//    uint8_t y_high_data;
-//    uint8_t z_low_data;
-//    uint8_t z_high_data;
-//}acc_data;
-//
-//static struct
-//{
-//    uint8_t x_low_data;
-//    uint8_t x_high_data;
-//    uint8_t y_low_data;
-//    uint8_t y_high_data;
-//    uint8_t z_low_data;
-//    uint8_t z_high_data;
-//}gyr_data;
-//
-//
-//
-//void update_mag_data(void){
-//    if (BMX160_chipfound) {
-//        get_mag_x_data_low(&mag_data.x_low_data);
-//        get_mag_x_data_high(&mag_data.x_high_data);
-//        get_mag_y_data_low(&mag_data.y_low_data);
-//        get_mag_y_data_high(&mag_data.y_high_data);
-//        get_mag_z_data_low(&mag_data.z_low_data);
-//        get_mag_z_data_high(&mag_data.z_high_data);
-//    }
-//}
-//
-//void update_acc_data(void){
-//    if (BMX160_chipfound) {
-//        get_acc_x_data_low(&acc_data.x_low_data);
-//        get_acc_x_data_high(&acc_data.x_high_data);
-//        get_acc_y_data_low(&acc_data.y_low_data);
-//        get_acc_y_data_high(&acc_data.y_high_data);
-//        get_acc_z_data_low(&acc_data.z_low_data);
-//        get_acc_z_data_high(&acc_data.z_high_data);
-//    }
-//}
-//
-//void update_gyr_data(void){
-//    if (BMX160_chipfound) {
-//        get_gyr_x_data_low(&gyr_data.x_low_data);
-//        get_gyr_x_data_high(&gyr_data.x_high_data);
-//        get_gyr_y_data_low(&gyr_data.y_low_data);
-//        get_gyr_y_data_high(&gyr_data.y_high_data);
-//        get_gyr_z_data_low(&gyr_data.z_low_data);
-//        get_gyr_z_data_high(&gyr_data.z_high_data);
-//    }
-//}
-//#pragma endregion
-//#endif
-//
-//#if LPS22HB_ENABLE
-//#pragma region
-//
-//#pragma endregion
-//#endif
+int16_t temp_data_buffer;
+int16_t temp_hum_buffer;
+int16_t RealTemp;
 
 ////Declared twi manager for sensors
 NRF_TWI_MNGR_DEF(mng_twi_inst, 33, 0);
+NRF_TWI_SENSOR_DEF(twi_sensor_inst, &mng_twi_inst, 4);
 
 //HTS221TR 
 //NRF_TWI_SENSOR_DEF(twi_sensor_inst, &mng_twi_inst, 4);
@@ -131,8 +59,7 @@ APP_ERROR_CHECK(nrf_twi_mngr_init(&mng_twi_inst, &sensor_mngr_config));
 
 
 //HTS221
-NRF_TWI_SENSOR_DEF(twi_sensor_inst, &mng_twi_inst, HTS221_MIN_QUEUE_SIZE);
-HTS221_INSTANCE_DEF(hts221_inst, &twi_sensor_inst, 0x5B);
+HTS221_INSTANCE_DEF(hts221_inst, &twi_sensor_inst, HTS221_BASE_ADDRESS);
 
 uint8_t hts221_who_what;
 
@@ -141,23 +68,23 @@ void hts221_data_init(void)
 APP_ERROR_CHECK(nrf_twi_sensor_init(&twi_sensor_inst));
 APP_ERROR_CHECK(hts221_init(&hts221_inst));
 APP_ERROR_CHECK(hts221_avg_cfg(&hts221_inst, HTS221_TEMP_SAMPLES_8, HTS221_HUMIDITY_SAMPLES_16));
+hts221_pd_enable(&hts221_inst, true);
+
 //lps22hb_who_am_i_read(&hts221_inst, NULL, &hts221_who_what);
 //NRF_LOG_INFO(" Who am i : %d, right: %d ", hts221_inst,HTS221_WHO_AM_I);
 }
 
-uint16_t rawtemp;
-uint16_t RealTemp;
 
-void print_temp(uint16_t rawtemp)
+void print_temp(uint32_t twi_result_t, int16_t *p_data)
 {
-NRF_LOG_INFO("Raw temp is  : %d ", rawtemp);
-RealTemp = hts221_temp_process(&hts221_inst, rawtemp)/8;
+NRF_LOG_INFO("Raw temp is  : %d ", temp_data_buffer);
+RealTemp = hts221_temp_process(&hts221_inst, temp_data_buffer)/8;
 NRF_LOG_INFO("Real temp is  : %d ", RealTemp);
 
 }
 
 void get_gts221_data(void)
 {
-
-APP_ERROR_CHECK(hts221_temp_read(&hts221_inst, &print_temp, &rawtemp));
+hts221_oneshot(&hts221_inst);
+APP_ERROR_CHECK(hts221_temp_read(&hts221_inst, &print_temp, &temp_data_buffer));
 }
