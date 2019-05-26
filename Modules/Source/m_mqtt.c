@@ -16,18 +16,18 @@
 //to make it work again comment the line back in
 #define SEARCH_GATEWAY_TIMEOUT 5 /**< MQTT-SN Gateway discovery procedure timeout in [s]. */
 
-static mqttsn_client_t      m_client;                                       /**< An MQTT-SN client instance. */
-static mqttsn_remote_t      m_gateway_addr;                                 /**< A gateway address. */
-static uint8_t              m_gateway_id;                                   /**< A gateway ID. */
-static mqttsn_connect_opt_t m_connect_opt;                                  /**< Connect options for the MQTT-SN client. */
-static bool                 m_subscribed       = 0;                         /**< Current subscription state. */
-static uint16_t             m_msg_id           = 0;                         /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
-static char                 m_client_id[]      = "123";     /**< The MQTT-SN Client's ID. */
-static char                 m_topic_name[]     = "nRF52840_resources/led3"; /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
-static mqttsn_topic_t       m_topic            =                            /**< Topic corresponding to subscriber's BSP_LED_2. */
-{
-    .p_topic_name = (unsigned char *)m_topic_name,
-    .topic_id     = 0,
+static mqttsn_client_t m_client;                        /**< An MQTT-SN client instance. */
+static mqttsn_remote_t m_gateway_addr;                  /**< A gateway address. */
+static uint8_t m_gateway_id;                            /**< A gateway ID. */
+static mqttsn_connect_opt_t m_connect_opt;              /**< Connect options for the MQTT-SN client. */
+static bool m_subscribed = 0;                           /**< Current subscription state. */
+static uint16_t m_msg_id = 0;                           /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
+static char m_client_id[] = "123";                      /**< The MQTT-SN Client's ID. */
+static char m_topic_name[] = "nRF52840_resources/led3"; /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
+static mqttsn_topic_t m_topic =                         /**< Topic corresponding to subscriber's BSP_LED_2. */
+    {
+        .p_topic_name = (unsigned char *)m_topic_name,
+        .topic_id = 0,
 };
 
 static uint8_t status = 0;
@@ -95,15 +95,16 @@ static void regack_callback(mqttsn_event_t *p_event)
  *
  * @
  */
-static void received_callback(mqttsn_event_t * p_event)
+static void received_callback(mqttsn_event_t *p_event)
 {
     if (p_event->event_data.published.packet.topic.topic_id == m_topic.topic_id)
     {
-        char dat[10]; 
-        for(uint8_t i = 0; i <= 10; i++){
-          dat[i] =p_event->event_data.published.p_payload[i];
+        char dat[10];
+        for (uint8_t i = 0; i <= 10; i++)
+        {
+            dat[i] = p_event->event_data.published.p_payload[i];
         }
-        NRF_LOG_INFO("MQTT-SN event: Content to subscribed topic received. %s\r\n",p_event->event_data.published.p_payload);
+        NRF_LOG_INFO("MQTT-SN event: Content to subscribed topic received. %s\r\n", p_event->event_data.published.p_payload);
         message_decoder(dat);
     }
     else
@@ -219,36 +220,27 @@ void mqttsn_pub(char message)
         {
             NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
         }
-        {
-            NRF_LOG_ERROR("NOT READY TO PUBLISH");
-        }
+    }
+    else
+    {
+        NRF_LOG_ERROR("NOT READY TO PUBLISH");
     }
 }
-static char m = 'a';
 
-void pub(void)
+void sub(void)
 {
     if (status == 2)
     {
-        uint32_t err_code;
-        err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &m, 1, &m_msg_id);
-        if (err_code != NRF_SUCCESS)
-        {
-            NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code);
-        }
-    }
-}
-
-void sub(void){
-if(status == 2){
         uint32_t err_code = mqttsn_client_subscribe(&m_client, m_topic.p_topic_name, 4, &m_msg_id);
         if (err_code != NRF_SUCCESS)
         {
             NRF_LOG_ERROR("SUBSCRIBE message could not be sent.\r\n");
-        }else{
-          status ++;
         }
+        else
+        {
+            status++;
         }
+    }
 }
 
 /**

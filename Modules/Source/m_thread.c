@@ -45,8 +45,7 @@ static void bsp_event_handler(bsp_event_t event)
         return;
     }
 }
-/**@brief Function for initializing the Thread Stack.
- */
+
 void thread_instance_init(void)
 {
     thread_configuration_t thread_configuration =

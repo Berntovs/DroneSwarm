@@ -72,11 +72,7 @@ float rtc_get_delta_time_sec(float * prev_time)
 
 
 
-//static nrfx_timer_t timer;
-/*
-void timer_event_handler(nrf_timer_event_t event_type, void* p_context)
-{
-}*/
+
 
 void timer_1_init(uint32_t time, nrfx_timer_event_handler_t handler)
 {

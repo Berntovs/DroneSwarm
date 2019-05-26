@@ -27,16 +27,16 @@ void message_decoder(const char *  p_packet)
     int8_t id = p_packet[0];
     switch (id)
     {
-    case 1:
+    case '1':
         NRF_LOG_INFO("Command reconised, command = %d", id);
-        //spim_3_transfer(motor_speeed);
+        spim_3_transfer(motor_speeed);
         break;
 
-    case 2:
-        //spim_3_transfer(motor_off);
+    case '2':
+        spim_3_transfer(motor_off);
         NRF_LOG_INFO("Command reconised, command = %d", id);
         break;
-    case 3:
+    case '3':
         NRF_LOG_INFO("Command reconised, command = %d", id);
         break;
     default:

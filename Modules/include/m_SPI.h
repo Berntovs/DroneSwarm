@@ -20,7 +20,7 @@
 #define SPI_BUFFER_LENGTH SPI_BUFFER_LENGTH_DEFAULT
 
 /**
- * @brief
+ * @brief commands for the spi dualchip
  */
 typedef enum
 {
@@ -35,6 +35,11 @@ typedef enum
 void spim_3_init(void);
 
 /**
+ * @brief Function for initialize the spis 2 instance
+ */
+void spis_2_init(void);
+
+/**
  * @brief Function for sending data to slave, aswell for reciving data
  *
  * @param[in] p_tx_data pointer to data that is to be transferd
@@ -45,8 +50,5 @@ void spim_3_init(void);
  */
 void spim_3_transfer(uint8_t *p_tx_data);
 
-/**
- * @brief Function for initialize the spim 2 instance
- */
-void spis_2_init(void);
+
 

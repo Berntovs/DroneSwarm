@@ -13,3 +13,7 @@ typedef struct {
 uint8_t id;
 uint8_t *data;
 }data;
+
+// flyttes ?? 
+
+// økt simpisitet
