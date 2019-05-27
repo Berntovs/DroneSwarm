@@ -24,9 +24,10 @@
  */
 typedef enum
 {
-    send_motor_speed = 1,
-    get_xy_cor,
-    get_sensor_data
+    start_motor = 1,
+    stop_motor,
+    turn_ccw,
+    turn_cw
 } spi_command_t;
 
 /**

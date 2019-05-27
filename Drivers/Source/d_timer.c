@@ -6,7 +6,7 @@
 #include "nrfx_rtc.h"
 #include "nrfx_timer.h"
 
-#include "m_timer.h"
+#include "d_timer.h"
 
 
 nrfx_timer_t timer_0 = NRFX_TIMER_INSTANCE(0);

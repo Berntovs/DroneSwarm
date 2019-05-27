@@ -22,8 +22,32 @@
 #define XSHUT_PIN_3     NRF_GPIO_PIN_MAP(1,0)
 #define XSHUT_PIN_4     NRF_GPIO_PIN_MAP(0,11)
 
-// Prototypes for externally used functions
 
+/**
+ * @brief fucntion for initialize the tof sensors
+ */
 void app_tof_init(void);
+
+/**
+ * @brief function for getting the sensor data from one sensor
+ *
+ * @param[out] RangingMeasurementData from the sensor
+ *
+ * @param[in] sensor what sensor to collect from
+ */
 void app_tof_get_range(VL53L0X_RangingMeasurementData_t *RangingMeasurementData, uint8_t sensor);
+
+/**
+ * @brief function for getting the sensor data from one sensor
+ *
+ * @param[out] sensor_one data from sensor one
+ *
+ * @param[out] sensor_two data from sensor two
+ *
+ * @param[out] sensor_three data from sensor three
+ *
+ * @param[out] sensor_four data from sensor four
+ *
+ * @param[out] array of sensor data
+ */
 void app_tof_get_range_all(VL53L0X_RangingMeasurementData_t *sensor_one, VL53L0X_RangingMeasurementData_t *sensor_two, VL53L0X_RangingMeasurementData_t *sensor_three, VL53L0X_RangingMeasurementData_t *sensor_four, float *range_array);

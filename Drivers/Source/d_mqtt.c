@@ -8,23 +8,70 @@
 #include "nrfx_timer.h"
 
 #include "mqttsn_client.h"
-#include "m_mqttsn_message.h"
-#include "m_thread.h"
-#include "m_mqtt.h"
-#include "m_timer.h"
+#include "m_communication.h"
+#include "d_thread.h"
+#include "d_mqtt.h"
+#include "d_timer.h"
+#include "d_SPI.h"
 //nasty fix at mqttsn_client.c line 351
 //to make it work again comment the line back in
+
+/**
+ * @briefThis function will decode the message mqttsn recive
+ *
+ * @info this function works as a simple ascii converter
+ */
+void message_decoder(const char *_data)
+{
+    char id = _data[0];
+    uint8_t _id;
+    char sub_id = _data[1];
+     uint8_t _sub_id;
+    switch (id)
+    {
+    case '1':
+        _id = 1;
+        break;
+    default:
+        break;
+    }
+    if (_id != 0)
+    {
+
+        switch (sub_id)
+        {
+        case '1':
+            _sub_id= 1;
+            break;
+        case '2':
+            _sub_id= 2;
+            break;
+        case '3':
+            _sub_id= 3;
+            break;
+        case '4':
+            _sub_id= 4;
+            break;
+        default:
+            break;
+        }
+        uint8_t data[] = {_id, _sub_id};
+
+            spim_3_transfer(data);
+    }
+}
+
 #define SEARCH_GATEWAY_TIMEOUT 5 /**< MQTT-SN Gateway discovery procedure timeout in [s]. */
 
-static mqttsn_client_t m_client;                        /**< An MQTT-SN client instance. */
-static mqttsn_remote_t m_gateway_addr;                  /**< A gateway address. */
-static uint8_t m_gateway_id;                            /**< A gateway ID. */
-static mqttsn_connect_opt_t m_connect_opt;              /**< Connect options for the MQTT-SN client. */
-static bool m_subscribed = 0;                           /**< Current subscription state. */
-static uint16_t m_msg_id = 0;                           /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
-static char m_client_id[] = "123";                      /**< The MQTT-SN Client's ID. */
-static char m_topic_name[] = "nRF52840_resources/led3"; /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
-static mqttsn_topic_t m_topic =                         /**< Topic corresponding to subscriber's BSP_LED_2. */
+static mqttsn_client_t m_client;           /**< An MQTT-SN client instance. */
+static mqttsn_remote_t m_gateway_addr;     /**< A gateway address. */
+static uint8_t m_gateway_id;               /**< A gateway ID. */
+static mqttsn_connect_opt_t m_connect_opt; /**< Connect options for the MQTT-SN client. */
+static bool m_subscribed = 0;              /**< Current subscription state. */
+static uint16_t m_msg_id = 0;              /**< Message ID thrown with MQTTSN_EVENT_TIMEOUT. */
+static char m_client_id[] = "123";         /**< The MQTT-SN Client's ID. */
+static char m_topic_name[] = "test";       /**< Name of the topic corresponding to subscriber's BSP_LED_2. */
+static mqttsn_topic_t m_topic =            /**< Topic corresponding to subscriber's BSP_LED_2. */
     {
         .p_topic_name = (unsigned char *)m_topic_name,
         .topic_id = 0,
@@ -99,7 +146,7 @@ static void received_callback(mqttsn_event_t *p_event)
 {
     if (p_event->event_data.published.packet.topic.topic_id == m_topic.topic_id)
     {
-        char dat[10];
+         char dat[10];
         for (uint8_t i = 0; i <= 10; i++)
         {
             dat[i] = p_event->event_data.published.p_payload[i];
@@ -215,7 +262,7 @@ void mqttsn_pub(char message)
 {
     if (status == 2)
     {
-        uint32_t err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &message, 1, &m_msg_id);
+        uint32_t err_code = mqttsn_client_publish(&m_client, m_topic.topic_id, &message, 20, &m_msg_id);
         if (err_code != NRF_SUCCESS)
         {
             NRF_LOG_ERROR("PUBLISH message could not be sent. Error code: 0x%x\r\n", err_code)
@@ -283,6 +330,7 @@ void mqttsn_boot(nrf_timer_event_t event_type, void *p_context)
         break;
     case STATE_PUB:
         sub();
+        //timer_1_uninit();
         break;
     case 3:
         timer_1_uninit();

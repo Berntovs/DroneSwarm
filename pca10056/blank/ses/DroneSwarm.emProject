@@ -51,6 +51,8 @@
     </folder>
     <folder Name="Board Definition">
       <file file_name="../../../../../../components/boards/boards.c" />
+      <file file_name="../../../swarm_board.c" />
+      <file file_name="../../../swarm_board.h" />
     </folder>
     <folder Name="Application">
       <file file_name="../../../main.c" />
@@ -109,6 +111,7 @@
       <file file_name="../../../../../../integration/nrfx/legacy/nrf_drv_twi.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_spim.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_spis.c" />
+      <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_pwm.c" />
     </folder>
     <folder Name="Board Support">
       <file file_name="../../../../../../components/libraries/bsp/bsp.c" />
@@ -148,34 +151,6 @@
       <file file_name="../../../../../../components/thread/utils/thread_utils.c" />
     </folder>
     <folder Name="Drivers">
-      <folder Name="Source">
-        <file file_name="../../../Drivers/Source/d_eulerconversion.c" />
-        <file file_name="../../../Drivers/Source/d_LPS22HB_twi.c">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
-        </file>
-        <file file_name="../../../Drivers/Source/d_swarm_board.c" />
-        <file file_name="../../../Drivers/Source/d_twi.c" />
-        <file file_name="../../../Drivers/Source/d_BMX160_twi.c">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
-        </file>
-        <file file_name="../../../Drivers/Source/d_encoder.c" />
-        <file file_name="../../../Drivers/Source/d_encoder2.c" />
-      </folder>
-      <folder Name="Include">
-        <file file_name="../../../Drivers/Include/d_encoder2.h" />
-        <file file_name="../../../Drivers/Include/d_eulerconversion.h" />
-        <file file_name="../../../Drivers/Include/d_LPS22HB_twi.h">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
-        </file>
-        <file file_name="../../../Drivers/Include/d_swarm_board.h" />
-        <file file_name="../../../Drivers/Include/d_twi.h">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
-        </file>
-        <file file_name="../../../Drivers/Include/d_BMX160_twi.h">
-          <configuration Name="Debug" build_exclude_from_build="Yes" />
-        </file>
-        <file file_name="../../../Drivers/Include/d_encoder.h" />
-      </folder>
       <folder Name="Registermaps">
         <file file_name="../../../Drivers/registermaps/d_CCS811_RegisterMap.h" />
         <file file_name="../../../Drivers/registermaps/d_HTS221_RegisterMap.h" />
@@ -183,48 +158,50 @@
         <file file_name="../../../Drivers/registermaps/d_LPS22HB_RegisterMap.h" />
         <file file_name="../../../Drivers/registermaps/d_BMX160_RegisterMap.h" />
       </folder>
+      <folder Name="source">
+        <file file_name="../../../Drivers/Source/d_encoder.c" />
+        <file file_name="../../../Drivers/Source/d_eulerconversion.c" />
+        <file file_name="../../../Drivers/Source/d_mqtt.c" />
+        <file file_name="../../../Drivers/Source/d_SPI.c" />
+        <file file_name="../../../Drivers/Source/d_thread.c" />
+        <file file_name="../../../Drivers/Source/d_timer.c" />
+        <file file_name="../../../Drivers/Source/d_uart.c" />
+        <file file_name="../../../Drivers/Source/d_batt_meas.c" />
+        <folder Name="include">
+          <file file_name="../../../Modules/include/m_sensors.h" />
+          <file file_name="../../../Modules/include/m_status_led.h" />
+          <file file_name="../../../Modules/include/m_tof.h" />
+          <file file_name="../../../Modules/include/m_ascii_converter.h" />
+          <file file_name="../../../Modules/include/m_JSON.h" />
+          <file file_name="../../../Modules/include/m_location.h" />
+          <file file_name="../../../Modules/include/m_min_max.h" />
+          <file file_name="../../../Modules/include/m_motor.h" />
+          <file file_name="../../../Modules/include/m_communication.h" />
+        </folder>
+      </folder>
+      <folder Name="include">
+        <file file_name="../../../Drivers/Include/d_SPI.h" />
+        <file file_name="../../../Drivers/Include/d_thread.h" />
+        <file file_name="../../../Drivers/Include/d_timer.h" />
+        <file file_name="../../../Drivers/Include/d_uart.h" />
+        <file file_name="../../../Drivers/Include/d_batt_meas.h" />
+        <file file_name="../../../Drivers/Include/d_encoder.h" />
+        <file file_name="../../../Drivers/Include/d_eulerconversion.h" />
+        <file file_name="../../../Drivers/Include/d_mqtt.h" />
+      </folder>
     </folder>
     <folder Name="Modules">
-      <folder Name="Source">
-        <file file_name="../../../Modules/Source/m_motor.c" />
-        <file file_name="../../../Modules/Source/m_mqtt.c" />
+      <folder Name="source">
         <file file_name="../../../Modules/Source/m_Real_Time_Clock.c" />
-        <file file_name="../../../Modules/Source/m_sensors.c">
-          <configuration Name="Debug" build_exclude_from_build="No" />
-        </file>
-        <file file_name="../../../Modules/Source/m_SPI.c" />
+        <file file_name="../../../Modules/Source/m_sensors.c" />
         <file file_name="../../../Modules/Source/m_status_led.c" />
-        <file file_name="../../../Modules/Source/m_thread.c" />
         <file file_name="../../../Modules/Source/m_tof.c" />
-        <file file_name="../../../Modules/Source/m_uart.c" />
         <file file_name="../../../Modules/Source/m_ascii_converter.c" />
-        <file file_name="../../../Modules/Source/m_batt_meas.c" />
         <file file_name="../../../Modules/Source/m_JSON.c" />
         <file file_name="../../../Modules/Source/m_location.c" />
         <file file_name="../../../Modules/Source/m_min_max.c" />
-        <file file_name="../../../Modules/Source/m_mqttsn_message.c" />
-        <file file_name="../../../Modules/Source/m_timer.c" />
-        <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_pwm.c" />
-      </folder>
-      <folder Name="Include">
-        <file file_name="../../../Modules/include/m_JSON.h" />
-        <file file_name="../../../Modules/include/m_location.h" />
-        <file file_name="../../../Modules/include/m_min_max.h" />
-        <file file_name="../../../Modules/include/m_motor.h" />
-        <file file_name="../../../Modules/include/m_Real_Time_Clock.h" />
-        <file file_name="../../../Modules/include/m_sensors.h">
-          <configuration Name="Debug" build_exclude_from_build="No" />
-        </file>
-        <file file_name="../../../Modules/include/m_SPI.h" />
-        <file file_name="../../../Modules/include/m_status_led.h" />
-        <file file_name="../../../Modules/include/m_thread.h" />
-        <file file_name="../../../Modules/include/m_tof.h" />
-        <file file_name="../../../Modules/include/m_uart.h" />
-        <file file_name="../../../Modules/include/m_ascii_converter.h" />
-        <file file_name="../../../Modules/include/m_batt_meas.h" />
-        <file file_name="../../../Modules/include/m_mqttsn_message.h" />
-        <file file_name="../../../Modules/include/m_timer.h" />
-        <file file_name="../../../Modules/include/m_mqtt.h" />
+        <file file_name="../../../Modules/Source/m_motor.c" />
+        <file file_name="../../../Modules/Source/m_communication.c" />
       </folder>
     </folder>
     <folder Name="TOF">

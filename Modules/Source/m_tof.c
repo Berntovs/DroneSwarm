@@ -9,7 +9,7 @@
 #include "m_tof.h"
 
 #include "m_min_max.h"
-#include "d_swarm_board.h"
+#include "swarm_board.h"
 
 static VL53L0X_Dev_t  tof_sensor_1;
 static VL53L0X_Dev_t  tof_sensor_2;

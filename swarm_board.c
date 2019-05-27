@@ -5,15 +5,16 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
-#include "m_mqtt.h"
+#include "d_mqtt.h"
 
 #include "m_status_led.h"
 #include "m_tof.h"
-#include "m_SPI.h"
+#include "d_SPI.h"
 #include "m_motor.h"
-#include "d_encoder2.h"
+#include "d_encoder.h"
+#include "m_sensors.h"
 
-#include "d_swarm_board.h"
+#include "swarm_board.h"
 #include "config.h"
 
 void log_init(void)
@@ -42,8 +43,10 @@ void secondary_chip_init(void)
     log_init();
     status_led_1_init();
     spim_3_init();
-    mqttsn_init();                   // dependent of status led 1 init
-
+    mqttsn_init(); // dependent of status led 1 init
+    sensor_mngr_init();
+    hts221_data_init();
+    lps22hb_data_init();
 }
 
 void main_chip_init(void)
@@ -55,6 +58,11 @@ void main_chip_init(void)
     app_tof_init();
     gpio_init();
     init_motor_pwm();
+    speed.speed_a = 100;
+    speed.speed_b = 65;
+    motor_speed(&speed);
+    selectdirection.direction = 0;
+    motor_direction(&selectdirection);
     motor_run();
     spis_2_init();
 }
@@ -67,8 +75,8 @@ void single_chip_init(void)
     gpio_init();
     init_motor_pwm();
     motor_run();
-    mqttsn_init();                   // dependent of status led 1 init
-   // timer_1_init(2000, mqttsn_boot); // dependent on mqttsn_init
+    mqttsn_init(); // dependent of status led 1 init
+                   // timer_1_init(2000, mqttsn_boot); // dependent on mqttsn_init
 }
 
 void board_init(void)

@@ -1,14 +1,11 @@
 #include <stdint.h>
-
-#include "d_twi.h"
-#include "d_BMX160_twi.h"
 #include "config.h"
 
 #include "nrf_twi_sensor.h"
 #include "nrf_twi_mngr.h"
 #include "lps22hb.h"
 #include "hts221.h"
-#include "d_swarm_board.h"
+#include "swarm_board.h"
 
 #include "m_sensors.h"
 
@@ -93,6 +90,14 @@ APP_ERROR_CHECK(hts221_temp_read(&hts221_inst, &print_hts211_temp, &temp_data_bu
 APP_ERROR_CHECK(hts221_hum_read(&hts221_inst, &print_hts211_hum, &hum_data_buffer));
 }
 
+int16_t collect_hts221_data(uint8_t id){
+    if(id == 0){  
+    return hts221_temp_process(&hts221_inst, temp_data_buffer)/8;
+    }else{
+    return hts221_hum_process(&hts221_inst, hum_data_buffer)/2;
+    }
+}
+
 //lps22hb
 //LPS22HB_BASE_ADDRESS_HIGH
 LPS22HB_INSTANCE_DEF(lps22hb_inst, &twi_sensor_inst, LPS22HB_BASE_ADDRESS_LOW);
@@ -130,3 +135,4 @@ lps22hb_oneshot(&lps22hb_inst);
 lps22hb_data_read(&lps22hb_inst, &print_lps22hb_data, &lps22hb_raw_data, 1);
 
 }
+

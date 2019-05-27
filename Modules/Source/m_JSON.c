@@ -7,13 +7,13 @@
 #include "m_JSON.h"
 
 
-void location_parser(uint16_t _address, int16_t _x_cor, int16_t _y_cor, char *p_out)
+char * location_parser(uint16_t _address, int16_t _x_cor, int16_t _y_cor, char *p_out)
 {
    cJSON *root = cJSON_CreateObject();
    cJSON_AddNumberToObject(root, "addr", _address);
    cJSON_AddNumberToObject(root, "x", _x_cor);
    cJSON_AddNumberToObject(root, "y", _y_cor);
-   p_out = cJSON_Print(root);
+   return cJSON_Print(root);
    cJSON_Delete(root);
 }
 

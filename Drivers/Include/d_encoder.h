@@ -1,35 +1,28 @@
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
-#include "d_swarm_board.h"
 
-#define WHEEL_DIAMETER 39 //In MM
-#define ENCODER_COUNT 12  //Number of times the encoder counts per revolution.
-#define PI 3.14159265359
-#define CIRCUMFERENCE WHEEL_DIAMETER *PI
-#define COUNT_DISTANCE CIRCUMFERENCE / ENCODER_COUNT
-/*
-#define ENCODERA_INT_PIN GPIO_1_PIN
-#define ENCODERA_DIR_PIN GPIO_2_PIN
-#define ENCODERB_INT_PIN GPIO_3_PIN
-#define ENCODERB_DIR_PIN GPIO_4_PIN
-*/
+#include "swarm_board.h"
 
-//test code
-#define ENCODERA_INT_PIN 11
-#define ENCODERA_DIR_PIN 12
-#define ENCODERB_INT_PIN 24
-#define ENCODERB_DIR_PIN 25
+#define ENCODER_LEFT_PIN MOTOR_ENCODER_A1_PIN // pin for encoder on left motor
+#define ENCODER_RIGHT_PIN MOTOR_ENCODER_B1_PIN // pin for encoder on right motor
 
+typedef struct
+{
+  uint32_t leftmotorticks;
+  uint32_t rightmotorticks;
+} encoder_ticks_t;
 
-
-typedef enum {
-    encoderA,
-    encoderB
-}encoder_num_t;
-
-
-
+/**
+ * @brief function for starting the encoder interupt
+ */
 void encoder_init(void);
-int32_t get_ticks(encoder_num_t encoder);
-void clear_ticks(void);
+
+/**
+ * @brief function for getting the tick count on both motors
+ *
+ * @return encoder_ticks_t gives the stuct with motor encoder ticks
+ */
+encoder_ticks_t get_ticks(void);
+

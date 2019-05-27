@@ -8,14 +8,13 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-#include "m_Real_Time_Clock.h"
 
 #include "mqttsn_client.h"
 #include "thread_utils.h"
 
-#include "m_mqtt.h"
-#include "m_thread.h"
-#include "m_Real_Time_Clock.h"
+#include "d_mqtt.h"
+#include "d_thread.h"
+
 
 #include <openthread/thread.h>
 

@@ -2,7 +2,7 @@
 #include "nrfx_pwm.h"
 #include "nrf_pwm.h"
 #include "app_error.h"
-#include "d_swarm_board.h"
+#include "swarm_board.h"
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"

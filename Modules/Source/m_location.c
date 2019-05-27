@@ -4,7 +4,7 @@
 #include <string.h>
 #include "math.h"
 #include "m_motor.h"
-#include "d_encoder2.h"
+#include "d_encoder.h"
 #include "m_location.h"
 
 #include "nrf_log.h"
@@ -19,7 +19,7 @@
 //int32_t ydirection;
 
 //Uncomment difference = (leftdifference + rightdifference)/2; and comment difference = rightdifference if using two matching motors with encoder
-    
+
     uint32_t leftencodervalue;
     uint32_t rightencodervalue;
     uint32_t oldleftencodervalue;
@@ -49,7 +49,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         case 0:
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue;
-       
+
             break;
 
         //Forward
@@ -65,7 +65,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         difference = rightdifference;
         oldleftencodervalue = leftencodervalue;
         oldrightencodervalue = rightencodervalue;
-        
+
         tempangle = location_and_angle->angle;
         degreetoradian = tempangle;
         degreetoradian = (degreetoradian* PI)/180;
@@ -83,7 +83,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         }
 
             break;
-        
+
         //Reverse
         case 2:
         if ((leftencodervalue != oldleftencodervalue) && (rightencodervalue != oldrightencodervalue))
@@ -93,7 +93,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         //difference = (leftdifference + rightdifference)/2;
         difference = rightdifference;
         oldleftencodervalue = leftencodervalue;
-        oldrightencodervalue = rightencodervalue;      
+        oldrightencodervalue = rightencodervalue;
         tempangle = location_and_angle->angle;
         degreetoradian = tempangle;
         degreetoradian = (degreetoradian* PI)/180;
@@ -131,7 +131,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
 
 
             break;
-        
+
         //Turn CCW
         case 4:
         if ((leftencodervalue != oldleftencodervalue) && (rightencodervalue != oldrightencodervalue))
@@ -141,7 +141,7 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
         //difference = (leftdifference + rightdifference)/2;
         difference = rightdifference,
         oldleftencodervalue = leftencodervalue;
-        oldrightencodervalue = rightencodervalue; 
+        oldrightencodervalue = rightencodervalue;
         tempangle = location_and_angle->angle;
         //NRF_LOG_INFO("tempangle is %d .", tempangle);
         //tempangle = tempangle - (difference/ticksconfig.ticks_per_degree);
@@ -164,6 +164,6 @@ void location_service(motor_direction_t *selectdirection, encoder_ticks_t *encod
             break;
 
     }
-    
+
 
 }

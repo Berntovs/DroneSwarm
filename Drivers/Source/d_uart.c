@@ -4,7 +4,7 @@
 #include "nrfx_uarte.h"
 #include "config.h"
 
-#include "m_uart.h"
+#include "d_uart.h"
 
 nrfx_uarte_t uarte_0_inst = NRFX_UARTE_INSTANCE(0);
 

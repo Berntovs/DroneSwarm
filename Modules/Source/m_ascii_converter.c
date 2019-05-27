@@ -11,12 +11,16 @@ uint8_t hex_to_ascii_number_table[] = {0x30, 0x31, 0x31, 0x33, 0x34, 0x35, 0x36,
 uint16_t hex_array_to_ascii(char *hex_array, uint8_t *ascii_array)
 {
   static uint16_t size = 0;
-  for(uint8_t i = 1; i <= 6; i = i + 1) // TODO: 6 can't be hardcoded (Upper limit of i). Currently sizeof(hex_array) gives 4.. why?
-    {
-      ascii_array[size] = hex_to_ascii_number_table[hex_array[6 - i] >> 4];
-      size++;
-      ascii_array[size] = hex_to_ascii_number_table[hex_array[6 - i] & 0x0F];
-      size++;
-    }
+  for (uint8_t i = 1; i <= 6; i = i + 1) // TODO: 6 can't be hardcoded (Upper limit of i). Currently sizeof(hex_array) gives 4.. why?
+  {
+    ascii_array[size] = hex_to_ascii_number_table[hex_array[6 - i] >> 4];
+    size++;
+    ascii_array[size] = hex_to_ascii_number_table[hex_array[6 - i] & 0x0F];
+    size++;
+  }
   return size;
+}
+
+void uint_to_ascii(uint32_t data, char * out_data)
+{
 }

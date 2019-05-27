@@ -5,7 +5,7 @@
 #include "nrfx_clock.h"
 #include "nrfx_pwm.h"
 #include "boards.h"
-#include "d_swarm_board.h"
+#include "swarm_board.h"
 #include "app_error.h"
 
 #include "m_status_led.h"

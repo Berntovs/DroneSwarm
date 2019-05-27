@@ -7,12 +7,12 @@
 #include "app_error.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-#include "d_swarm_board.h"
+#include "swarm_board.h"
 #include "config.h"
 #include "m_motor.h"
 #include "nrfx_spim.h"
 #include "nrfx_spis.h"
-#include "m_spi.h"
+#include "d_spi.h"
 #include "m_tof.h"
 #include "vl53l0x_api.h"
 
@@ -52,8 +52,6 @@ void spim_3_init(void)
   NRF_LOG_RAW_INFO("[SUCCESS] SPIM_0 is enabled \n");
 }
 
-
-
 static uint8_t a = 0;
 VL53L0X_RangingMeasurementData_t dat_tof;
 
@@ -64,16 +62,10 @@ void spis_2_event_handler(nrfx_spis_evt_t const *p_event, void *p_context)
     uint8_t id = rx_buf[0];
     switch (id)
     {
-    case send_motor_speed:
-      speed.speed_a = rx_buf[1];
-      speed.speed_b = rx_buf[2];
-      motor_speed(&speed);
+    case 1:
+      selectdirection.direction = rx_buf[1];
+          motor_direction(&selectdirection);
       motor_run();
-      break;
-    case 3:
-       app_tof_get_range(&dat_tof, 1);
-       rx_buf[0] = dat_tof.RangeMilliMeter >> 8;
-       rx_buf[1] = dat_tof.RangeMilliMeter;
       break;
 
     default:

@@ -1,3 +1,9 @@
+/**
+ * @important because of an issue where the mqttsn would send a ping request, and then stop because of an error code. A temporary solution was made
+ *            - on line 351 in mqttsn_client.c this was changed from "ASSERT(false);" to "//ASSERT(false);"
+ */
+
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
